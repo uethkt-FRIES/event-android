@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "4477582653",
+    "firebase_url": "https://timy-hackathon.firebaseio.com",
+    "project_id": "timy-hackathon",
+    "storage_bucket": "timy-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4477582653:android:47b03373cb2a0ddb",
+        "android_client_info": {
+          "package_name": "com.fries.hkt.event.eventhackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4477582653-hpa7qa99t10k0gs87ul3qrd5vjnbc4ju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fries.hkt.event.eventhackathon",
+            "certificate_hash": "7e938f9fde0b7a3e43c4b48f757355dfa0189843"
+          }
+        },
+        {
+          "client_id": "4477582653-2npfqviavd05skl2m0n1f1t3e6pdbul5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpX6tr73-u0TinC9BG92yN04AFOmVUVBc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4477582653-2npfqviavd05skl2m0n1f1t3e6pdbul5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
