@@ -1,2 +1,3 @@
 # event-android
-Client Android
+
+Bản Android của ứng dụng
