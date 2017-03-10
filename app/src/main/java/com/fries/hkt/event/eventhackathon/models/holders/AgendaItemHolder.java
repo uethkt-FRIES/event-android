@@ -51,6 +51,7 @@ public class AgendaItemHolder extends RecyclerView.ViewHolder {
 
             d.setContentView(R.layout.dialog_agenda_details_full);
             d.setTitle(tvAgendaItem.getText());
+            d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
             lp.copyFrom(d.getWindow().getAttributes());
