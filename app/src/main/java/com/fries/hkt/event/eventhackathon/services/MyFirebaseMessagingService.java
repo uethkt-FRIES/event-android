@@ -11,8 +11,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.customview.QuickAnswerViewGroup;
+import com.fries.hkt.event.eventhackathon.eventbus.ShowQuickAnswerEvent;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -39,6 +43,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
+
+
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
 
@@ -47,6 +53,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private void sendNotification(Map<String, String> msgData) {
+        if(msgData.containsKey("type")){
+            if(msgData.get("type").equals("1")){
+                EventBus.getDefault().post(new ShowQuickAnswerEvent());
+                Log.d("type", msgData.get("type"));
+            }
+            Log.d("type", "hihi");
+        }
+        Log.d("type", "hihi2");
+        EventBus.getDefault().post(new ShowQuickAnswerEvent());
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 

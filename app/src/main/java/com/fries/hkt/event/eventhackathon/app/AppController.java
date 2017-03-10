@@ -1,6 +1,9 @@
 package com.fries.hkt.event.eventhackathon.app;
 
+import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
+
+import com.fries.hkt.event.eventhackathon.services.PushDialogQuickAnswerService;
 
 
 public class AppController extends MultiDexApplication {
@@ -12,7 +15,7 @@ public class AppController extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        startService(new Intent(this, PushDialogQuickAnswerService.class));
         mInstance = this;
     }
 
