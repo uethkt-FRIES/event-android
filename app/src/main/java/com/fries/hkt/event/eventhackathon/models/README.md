@@ -1,0 +1,2 @@
+# adapters
+Chứa các Adapter

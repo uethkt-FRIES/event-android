@@ -1,0 +1,2 @@
+# activities
+Chứa các Activity
