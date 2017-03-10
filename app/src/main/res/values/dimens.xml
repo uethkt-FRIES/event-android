@@ -1,8 +1,53 @@
 <resources>
+
+    <!--Layout-->
+    <dimen name="padding_layout">16dp</dimen>
+    <dimen name="padding_view">8dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="lv_margin">8dp</dimen>
+
+
+
+    <!--Font text size Material-->
+    <dimen name="t_size_display_1">34sp</dimen>
+    <dimen name="t_size_headline">24sp</dimen>
+    <dimen name="t_size_title">20sp</dimen>
+    <dimen name="t_size_subheading_2">18sp</dimen>
+    <dimen name="t_size_subheading">16sp</dimen>
+    <dimen name="t_size_body_1">15sp</dimen>
+    <dimen name="t_size_body">14sp</dimen>
+    <dimen name="t_size_caption">12sp</dimen>
+    <dimen name="t_size_small_1">13sp</dimen>
+    <dimen name="t_size_small">12sp</dimen>
+    <dimen name="t_size_tiny">10sp</dimen>
+    <dimen name="t_size_tiny_tiny">8sp</dimen>
+
+
+    <dimen name="t_size_edt">16sp</dimen>
+    <dimen name="t_size_edt_big">18sp</dimen>
+
+
+    <!--Button-->
+    <dimen name="btn_height">32dp</dimen>
+    <dimen name="btn_height_dialog">36dp</dimen>
+    <dimen name="btn_margin">8dp</dimen>
+
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="margin_line_text">4dp</dimen>
+
+    <!--Icon-->
+    <dimen name="i_icon_size_large">36dp</dimen>
+    <dimen name="i_icon_size_bigger">26dp</dimen>
+    <dimen name="i_icon_size_big">24dp</dimen>
+    <dimen name="i_icon_size">20dp</dimen>
+    <dimen name="i_icon_size_small">18dp</dimen>
+    <dimen name="i_icon_size_tiny">14dp</dimen>
+
 </resources>

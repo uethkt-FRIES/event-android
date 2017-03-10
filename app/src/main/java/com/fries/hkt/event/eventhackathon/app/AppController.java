@@ -1,4 +1,4 @@
-package com.fries.event.eventhackathon.app;
+package com.fries.hkt.event.eventhackathon.app;
 
 import android.support.multidex.MultiDexApplication;
 
