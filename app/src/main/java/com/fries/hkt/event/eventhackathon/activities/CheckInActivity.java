@@ -8,7 +8,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,12 +17,12 @@ import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.utils.CommonVls;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -93,21 +93,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    if (ActivityCompat.checkSelfPermission(CheckInActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    cameraSource.start(cameraView.getHolder());
-                } catch (IOException ie) {
-                    Log.e("CAMERA SOURCE", ie.getMessage());
-                }
+                startCamera();
             }
 
             @Override
@@ -145,6 +131,19 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    private void startCamera(){
+        try {
+            if (ActivityCompat.checkSelfPermission(CheckInActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                CommonVls.verifyCameraPermissions(CheckInActivity.this);
+                return;
+            }
+            cameraSource.start(cameraView.getHolder());
+        } catch (IOException ie) {
+            Log.e("CAMERA SOURCE", ie.getMessage());
+        }
+
+    }
+
     private void checkCode(String code) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.txt_please_wait));
@@ -177,6 +176,23 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case CommonVls.REQUEST_CAMERA: {
+                Log.i(TAG, "request camera");
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "grant");
+                    startCamera();
+                } else {
+                    Toast.makeText(this, "Không thể xin quyền sử dụng Camera", Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "Request denied");
+                }
+                break;
+            }
+        }
+    }
 
     @Override
     protected void onDestroy() {
