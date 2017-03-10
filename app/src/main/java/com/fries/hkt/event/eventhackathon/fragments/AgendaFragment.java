@@ -1,10 +1,14 @@
 package com.fries.hkt.event.eventhackathon.fragments;
 
 
+import android.content.Context;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,4 +54,46 @@ public class AgendaFragment extends Fragment {
             }
         }, 3000);
     }
+
+
+//    // ---------------------------------------------------------------------------------------------
+//    public class MyCustomLayoutManager extends LinearLayoutManager {
+//        private static final float MILLISECONDS_PER_INCH = 50f;
+//        private Context mContext;
+//
+//        public MyCustomLayoutManager(Context context) {
+//            super(context);
+//            mContext = context;
+//        }
+//
+//        @Override
+//        public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, final int position) {
+//
+//            LinearSmoothScroller smoothScroller = new LinearSmoothScroller(mContext) {
+//                        //This controls the direction in which smoothScroll looks
+//                        //for your view
+//                        @Override
+//                        public PointF computeScrollVectorForPosition(int targetPosition) {
+////                            return MyCustomLayoutManager.this.computeScrollVectorForPosition(targetPosition);
+//                            int yDelta = calculateCurrentDistanceToPosition(targetPosition);
+//                            return new PointF(0, yDelta);
+//                        }
+//
+//                        //This returns the milliseconds it takes to
+//                        //scroll one pixel.
+//                        @Override
+//                        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+//                            return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
+//                        }
+//
+//                private int calculateCurrentDistanceToPosition(int targetPosition) {
+//                    int targetScrollY = targetPosition * itemHeight;
+//                    return targetScrollY - currentScrollY;
+//                }
+//                    };
+//
+//            smoothScroller.setTargetPosition(position);
+//            startSmoothScroll(smoothScroller);
+//        }
+//    }
 }

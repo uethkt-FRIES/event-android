@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.models.AgendaItem;
-import com.fries.hkt.event.eventhackathon.models.holders.AgendaItemHolder;
+import com.fries.hkt.event.eventhackathon.holders.AgendaItemHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

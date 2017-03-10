@@ -1,4 +1,4 @@
-package com.fries.hkt.event.eventhackathon.models.holders;
+package com.fries.hkt.event.eventhackathon.holders;
 
 
 import android.app.Dialog;
