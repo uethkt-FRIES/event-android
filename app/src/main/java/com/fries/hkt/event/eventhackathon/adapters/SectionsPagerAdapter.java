@@ -4,7 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.fries.hkt.event.eventhackathon.fragments.PlaceholderFragment;
+import com.fries.hkt.event.eventhackathon.fragments.AgendaFragment;
+import com.fries.hkt.event.eventhackathon.fragments.EventInfoFragment;
 
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -20,16 +21,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return PlaceholderFragment.newInstance(0);
+                return AgendaFragment.newInstance();
             default:
-                return PlaceholderFragment.newInstance(1);
+                return EventInfoFragment.newInstance(1);
         }
     }
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        // Show 3 total pages.
+        return 3;
     }
 
     @Override
@@ -39,6 +40,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "Lịch trình";
             case 1:
                 return "Thông tin";
+            case 2:
+                return "Bản đồ";
         }
         return null;
     }

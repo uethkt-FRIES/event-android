@@ -2,7 +2,9 @@ package com.fries.hkt.event.eventhackathon.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 
 /**
@@ -10,6 +12,39 @@ import android.support.v4.app.ActivityCompat;
  */
 
 public class CommonVls {
+
+    public static int getColor(int resId, Context context) {
+        int color = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            color = context.getColor(resId);
+        } else {
+            color = context.getResources().getColor(resId);
+        }
+
+        return color;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

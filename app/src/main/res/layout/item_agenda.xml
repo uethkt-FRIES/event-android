@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/v_state"
+        android:layout_width="4dp"
+        android:layout_marginTop="@dimen/padding_view"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_view"
+        android:layout_marginStart="@dimen/padding_view"
+        android:layout_marginTop="12dp"
+        android:layout_weight="3"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="06:09 AM"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_tiny" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_line_text"
+            android:text="17, Feb 2017"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_tiny_tiny" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/padding_layout"
+            android:alpha="0.54"
+            android:background="@color/colorPrimary" />
+
+        <FrameLayout
+            android:layout_width="@dimen/i_icon_size"
+            android:layout_height="@dimen/i_icon_size">
+
+            <ImageView
+                android:id="@+id/iv_agenda_state"
+                android:layout_width="@dimen/i_icon_size"
+                android:layout_height="@dimen/i_icon_size"
+                android:src="@drawable/ic_agenda_passed" />
+
+            <ProgressBar
+                android:id="@+id/pb_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:alpha="0.54"
+            android:background="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_layout"
+        android:layout_marginEnd="@dimen/padding_layout"
+        android:layout_marginStart="@dimen/padding_view"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:layout_weight="13"
+        android:gravity="start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title_agenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gioi thieu khach moi"
+            android:textColor="@color/black_87"
+            android:textSize="@dimen/t_size_body_1"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="bottom">
+
+            <ImageView
+                android:layout_width="@dimen/i_icon_size_tiny"
+                android:layout_height="@dimen/i_icon_size_tiny"
+                android:src="@drawable/ic_place" />
+
+            <TextView
+                android:id="@+id/tv_place_agenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoi truong A1"
+                android:textSize="@dimen/t_size_tiny" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="@dimen/i_icon_size_tiny"
+                android:layout_height="@dimen/i_icon_size_tiny"
+                android:padding="1dp"
+                android:src="@drawable/ic_message" />
+
+            <ImageView
+                android:layout_width="@dimen/i_icon_size_tiny"
+                android:layout_height="@dimen/i_icon_size_tiny"
+                android:layout_marginStart="4dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_meal" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_summary_agenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_line_text"
+            android:text="Phan nay co noi dung la ... \n(neu dai qua thi se gay ra roi mat)"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_small_1" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
