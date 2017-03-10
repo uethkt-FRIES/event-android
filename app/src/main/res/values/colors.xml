@@ -11,5 +11,7 @@
     <color name="black_54">#8A000000</color>
     <color name="black_12">#1E000000</color>
     <color name="black_6">#0F000000</color>
+    
+    <color name="orange">#FC8F01</color>
 
 </resources>
