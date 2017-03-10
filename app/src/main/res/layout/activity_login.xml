@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg_login"
+    android:fitsSystemWindows="false"
     android:orientation="vertical"
-    android:padding="16dp"
-    style="@style/AppTheme.NoActionBar">
+    android:padding="16dp">
 
     <View
         android:layout_width="wrap_content"
@@ -13,9 +14,9 @@
         android:layout_weight="2" />
 
     <ImageView
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="2"
         android:padding="16dp"
         android:src="@drawable/ic_app_name" />
@@ -27,14 +28,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
+        <ImageView
             android:id="@+id/btn_login_facebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#415DAE"
-            android:text="@string/txt_login_with_facebook"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:src="@drawable/bg_fb_login" />
 
     </LinearLayout>
 

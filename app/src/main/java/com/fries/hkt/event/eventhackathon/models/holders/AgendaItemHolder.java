@@ -20,7 +20,7 @@ import com.fries.hkt.event.eventhackathon.utils.CommonVls;
  */
 
 
-public class AgendaItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class AgendaItemHolder extends RecyclerView.ViewHolder {
 
     private TextView tvAgendaItem;
     private ImageView ivState;
@@ -41,29 +41,34 @@ public class AgendaItemHolder extends RecyclerView.ViewHolder implements View.On
         vState = itemView.findViewById(R.id.v_state);
 
         // Set other
-        rootView.setOnClickListener(this);
+        rootView.setOnClickListener(onClickRootView);
     }
 
-    @Override
-    public void onClick(View v) {
-        Dialog d = new Dialog(mContext
-//                , android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-//                , R.style.AppTheme_NoActionBar
-                , android.R.style.Theme_Material_Light_Dialog
-        );
+    private View.OnClickListener onClickRootView = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final Dialog d = new Dialog(mContext, R.style.AppTheme_OverlapStatusBar);
 
-        d.setContentView(R.layout.dialog_agenda_details);
+            d.setContentView(R.layout.dialog_agenda_details_full);
+            d.setTitle(tvAgendaItem.getText());
 
-        d.setTitle(tvAgendaItem.getText());
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(d.getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(d.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+            d.show();
+            d.getWindow().setAttributes(lp);
 
-        d.show();
-        d.getWindow().setAttributes(lp);
-    }
+            ImageView ivClose = (ImageView) d.findViewById(R.id.iv_close);
+            ivClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    d.dismiss();
+                }
+            });
+        }
+    };
 
     public void setAgendaItemText(String info) {
         tvAgendaItem.setText(info);

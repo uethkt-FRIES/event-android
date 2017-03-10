@@ -4,8 +4,133 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding_layout"
-    android:background="@color/white"
     android:paddingTop="@dimen/padding_layout">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_layout"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/padding_view"
+        android:gravity="center_vertical">
 
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_avatar"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@color/black_54"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="0.5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_layout"
+            android:text="Khai mac"
+            android:textColor="@color/black_87"
+            android:textSize="@dimen/t_size_title" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 phut"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_body" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="4dp">
+
+        <ImageView
+            android:layout_width="@dimen/i_icon_size_tiny"
+            android:layout_height="@dimen/i_icon_size_tiny"
+            android:src="@drawable/ic_place_darker" />
+
+        <TextView
+            android:id="@+id/tv_place_agenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoi truong A1"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_small" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="4dp"
+        android:text="Th2 06 thg 03 luc 18h - 18h30"
+        android:textColor="@color/black_54"
+        android:textSize="@dimen/t_size_small" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:text="Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+Thong tin chi tiet cua tiet muc Khai mac
+        Thong tin chi tiet cua tiet muc Khai mac
+       "
+        android:textColor="@color/black_54"
+        android:textSize="@dimen/t_size_body" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:layout_weight="1"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:background="@color/black_54" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height_dialog"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:background="@drawable/bg_btn_border"
+        android:text="@string/txt_discuss"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t_size_body" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height_dialog"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/padding_layout"
+        android:background="@drawable/bg_btn_border"
+        android:text="@string/txt_rate"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t_size_body" />
 </LinearLayout>

@@ -7,7 +7,6 @@
     <dimen name="lv_margin">8dp</dimen>
 
 
-
     <!--Font text size Material-->
     <dimen name="t_size_display_1">34sp</dimen>
     <dimen name="t_size_headline">24sp</dimen>
@@ -29,7 +28,7 @@
 
     <!--Button-->
     <dimen name="btn_height">32dp</dimen>
-    <dimen name="btn_height_dialog">36dp</dimen>
+    <dimen name="btn_height_dialog">42dp</dimen>
     <dimen name="btn_margin">8dp</dimen>
 
 
