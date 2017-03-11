@@ -59,7 +59,7 @@
             android:layout_height="@dimen/i_icon_size">
 
             <ImageView
-                android:id="@+id/iv_agenda_state"
+                android:id="@+id/iv_state"
                 android:layout_width="@dimen/i_icon_size"
                 android:layout_height="@dimen/i_icon_size"
                 android:src="@drawable/ic_agenda_passed" />
@@ -93,7 +93,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_title_agenda"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gioi thieu khach moi"
@@ -113,7 +113,7 @@
                 android:src="@drawable/ic_place" />
 
             <TextView
-                android:id="@+id/tv_place_agenda"
+                android:id="@+id/tv_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hoi truong A1"
@@ -141,7 +141,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_summary_agenda"
+            android:id="@+id/tv_sub_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_line_text"

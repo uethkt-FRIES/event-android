@@ -6,11 +6,11 @@
     android:repeatCount="infinite"
     android:repeatMode="restart">
     <alpha
-        android:fromAlpha="0.0"
-        android:toAlpha="1.0" />
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0" />
 
     <translate
-        android:fromYDelta="100%"
+        android:fromYDelta="0%"
         android:interpolator="@android:anim/decelerate_interpolator"
-        android:toYDelta="0%" />
+        android:toYDelta="100%" />
 </set>

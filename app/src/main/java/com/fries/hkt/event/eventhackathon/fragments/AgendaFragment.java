@@ -1,20 +1,16 @@
 package com.fries.hkt.event.eventhackathon.fragments;
 
 
-import android.content.Context;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.fries.hkt.event.eventhackathon.R;
-import com.fries.hkt.event.eventhackathon.adapters.AgendaAdapter;
+import com.fries.hkt.event.eventhackathon.adapters.TimeLineAdapter;
 
 /**
  * Created by tmq on 11/03/2017.
@@ -43,8 +39,8 @@ public class AgendaFragment extends Fragment {
         final RecyclerView rvAgenda = (RecyclerView) rootView.findViewById(R.id.rv_agenda);
         final LinearLayoutManager ll = new LinearLayoutManager(getContext());
         rvAgenda.setLayoutManager(ll);
-        AgendaAdapter agendaAdapter = new AgendaAdapter(getContext());
-        rvAgenda.setAdapter(agendaAdapter);
+        TimeLineAdapter timeLineAdapter = new TimeLineAdapter(getContext());
+        rvAgenda.setAdapter(timeLineAdapter);
 
         rootView.postDelayed(new Runnable() {
             @Override

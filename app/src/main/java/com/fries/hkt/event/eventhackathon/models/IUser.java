@@ -9,7 +9,10 @@ public class IUser {
     private String email;
     private String name;
 
-    public IUser(String avatar, String email, String name){
+    public IUser() {
+    }
+
+    public IUser(String avatar, String email, String name) {
         this.avatar = avatar;
         this.email = email;
         this.name = name;

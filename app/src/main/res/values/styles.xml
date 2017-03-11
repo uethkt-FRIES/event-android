@@ -37,7 +37,7 @@
     <!--Dialog-->
     <style name="PauseDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_slide_in_bottom</item>
-        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+        <item name="android:windowExitAnimation">@anim/anim_slide_out_bottom</item>
     </style>
 
     <style name="RadioButtonStyle" parent="Theme.AppCompat.Light">
