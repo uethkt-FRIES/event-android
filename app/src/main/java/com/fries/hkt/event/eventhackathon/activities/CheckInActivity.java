@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -88,7 +89,7 @@ public class CheckInActivity extends AppCompatActivity{
         initViews();
         initCamera();
 
-        checkCode("-KetXc5P8HCrQy-yIHA9");
+//        checkCode("-KetXc5P8HCrQy-yIHA9");
     }
 
     private void initViews() {
@@ -96,8 +97,8 @@ public class CheckInActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Quét QR");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
     }
 
@@ -233,9 +234,6 @@ public class CheckInActivity extends AppCompatActivity{
         });
 
         requestServer.sendRequest("fcm");
-
-
-
 
     }
 
