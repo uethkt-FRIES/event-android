@@ -65,6 +65,10 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     public void setTimeLine(ITimeLine timeLine) {
         this.timeLine = timeLine;
 
+        if (!timeLine.getEnabled()) {
+            rootView.setVisibility(View.GONE);
+            return;
+        }
         setAgendaItemText();
         setState();
         setDateTime();
@@ -125,7 +129,6 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
 
     private void setDateTime() {
         long milliseconds = timeLine.getStart_time();
-//        long milliseconds = System.currentTimeMillis();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
         int hours = calendar.get(Calendar.HOUR);

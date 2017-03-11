@@ -9,15 +9,15 @@ import java.util.ArrayList;
 public class ITimeLine {
 
     private long end_time;
-    ArrayList<IFeedback> feedback;
+    private ArrayList<IFeedback> feedback;
     private boolean is_online;
     private boolean enabled;
-    ArrayList<IKhachMoi> khachmoi;
+    private ArrayList<IKhachMoi> khachmoi;
     private String name;
     private String place;
-    ArrayList<IPool> pool;
-    ArrayList<IPoolUser> pool_users;
-    ArrayList<IQuestion> question;
+    private ArrayList<IPool> pool;
+    private ArrayList<IPoolUser> pool_users;
+    private ArrayList<IQuestion> question;
     private long start_time;
 
     public ITimeLine(){}
