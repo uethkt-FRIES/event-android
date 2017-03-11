@@ -64,9 +64,6 @@ public class TimeLineAdapter extends RecyclerView.Adapter<ITimeLineHolder> {
             }
         });
 
-//        DatabaseReference myRefKhach = database.getReference("/test/khachmoi");
-//        ITimeLine.IKhachMoi khachMoi = new ITimeLine.IKhachMoi("a", "b");
-
     }
 
     @Override

@@ -62,7 +62,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         rootView.setOnClickListener(onClickRootView);
     }
 
-    public void setTimeLine(ITimeLine timeLine){
+    public void setTimeLine(ITimeLine timeLine) {
         this.timeLine = timeLine;
 
         setAgendaItemText();
@@ -105,59 +105,34 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     }
 
     public void setState() {
-        long startTime = timeLine.getStart_time();
-        long endTime = timeLine.getEnd_time();
-        long currentTime = SystemClock.currentThreadTimeMillis();
-        int state = 0;
-        if (currentTime<startTime) state = STATE_PASSED;
-        else {
-            if (currentTime>endTime) state = STATE_WAITING;
-            else state = STATE_RESPONDING;
-        }
-
         int resId = 0;
-        switch (state) {
-            case AgendaItem.STATE_PASSED:
-                resId = R.drawable.ic_agenda_passed;
-                tvName.setTextColor(CommonVls.getColor(R.color.black_54, mContext));
-                tvName.setTypeface(null, Typeface.NORMAL);
-//                rootView.setBackgroundColor(CommonVls.getColor(R.color.black_6, context));
-//                rootView.setAlpha(0.6f);
-                pbState.setVisibility(View.GONE);
-                vState.setVisibility(View.INVISIBLE);
-                break;
-            case AgendaItem.STATE_RESPONDING:
-                resId = android.R.color.transparent;
-                tvName.setTextColor(CommonVls.getColor(R.color.black_87, mContext));
-                tvName.setTypeface(null, Typeface.BOLD);
-//                rootView.setBackgroundColor(CommonVls.getColor(R.color.white, context));
-                pbState.setVisibility(View.VISIBLE);
-//                rootView.setAlpha(1f);
-                vState.setVisibility(View.VISIBLE);
-                break;
-            case AgendaItem.STATE_WAITING:
-                resId = R.drawable.ic_agenda_waiting;
-                tvName.setTextColor(CommonVls.getColor(R.color.black_54, mContext));
-                tvName.setTypeface(null, Typeface.NORMAL);
-//                rootView.setBackgroundColor(CommonVls.getColor(R.color.white, context));
-                pbState.setVisibility(View.GONE);
-//                rootView.setAlpha(1f);
-                vState.setVisibility(View.INVISIBLE);
-                break;
+        Log.i(TAG, "is_online: " + timeLine.getIs_online());
+        if (timeLine.getIs_online()) {
+            resId = android.R.color.transparent;
+            tvName.setTextColor(CommonVls.getColor(R.color.black_87, mContext));
+            tvName.setTypeface(null, Typeface.BOLD);
+            pbState.setVisibility(View.VISIBLE);
+            vState.setVisibility(View.VISIBLE);
+        } else {
+            resId = R.drawable.ic_agenda_passed;
+            tvName.setTextColor(CommonVls.getColor(R.color.black_54, mContext));
+            tvName.setTypeface(null, Typeface.NORMAL);
+            pbState.setVisibility(View.GONE);
+            vState.setVisibility(View.INVISIBLE);
         }
         ivState.setImageResource(resId);
     }
 
-    private void setDateTime(){
-//        long milliseconds = Long.parseLong(timeLine.getStart_time());
-        long milliseconds = System.currentTimeMillis();
+    private void setDateTime() {
+        long milliseconds = timeLine.getStart_time();
+//        long milliseconds = System.currentTimeMillis();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
         int hours = calendar.get(Calendar.HOUR);
         int mins = calendar.get(Calendar.MINUTE);
         String am_pm = (calendar.get(Calendar.AM_PM) == Calendar.AM) ? "AM" : "PM";
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH)+1;
+        int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
 
         tvTime.setText(hours + ":" + mins + " " + am_pm);

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,37 +18,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.adapters.SectionsPagerAdapter;
+import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * The {@link PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link FragmentStatePagerAdapter}.
-     */
+    private static final String TAG = MainActivity.class.getSimpleName();
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    SharedPreferencesMgr sharedPreferencesMgr;
+
     private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferencesMgr = new SharedPreferencesMgr(this);
 
         // ------------------ Navigation Drawer ----------------------------------------------------
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,18 +72,54 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // ---------------- Tab layout -------------------------------------------------------------
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        fillUserInfo(navigationView);
 
+    }
+
+    private void fillUserInfo(NavigationView navigationView) {
+        CircleImageView avatar = (CircleImageView)navigationView.getHeaderView(0).findViewById(R.id.iv_avatar);
+        TextView txtUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
+        TextView txtMail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_email);
+
+        Picasso.with(this).load(sharedPreferencesMgr.getUserInfo().getAvatar()).into(avatar);
+        txtUserName.setText(sharedPreferencesMgr.getUserInfo().getName());
+        txtMail.setText(sharedPreferencesMgr.getUserInfo().getEmail());
+        initDataFirebase();
+    }
+
+    private void initDataFirebase(){
+        String id = sharedPreferencesMgr.getEventId();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/events/" + id);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "data=" + dataSnapshot.toString());
+                String banner = dataSnapshot.child("banner").getValue(String.class);
+                String map = dataSnapshot.child("map").getValue(String.class);
+                String name = dataSnapshot.child("name").getValue(String.class);
+                String place = dataSnapshot.child("place").getValue(String.class);
+
+                sharedPreferencesMgr.setEventInfo(banner, map, name, place);
+
+                getSupportActionBar().setTitle(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -93,16 +134,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -119,19 +156,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
