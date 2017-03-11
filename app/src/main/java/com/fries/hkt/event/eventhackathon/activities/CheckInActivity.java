@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
@@ -43,15 +44,16 @@ import java.io.IOException;
  * Created by tmq on 10/03/2017.
  */
 
-public class CheckInActivity extends AppCompatActivity implements View.OnClickListener {
+public class CheckInActivity extends AppCompatActivity{
 
     private static final String TAG = CheckInActivity.class.getSimpleName();
 
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private SurfaceView cameraView;
-    private EditText edtTypeCode;
-    private ImageButton btnSendCode;
+    private Toolbar toolbar;
+
+
 
     private boolean allowScan = true;
 
@@ -60,10 +62,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
             String code = bundle.getString("code");
-
-            Log.i(TAG, "code = " + code);
             checkCode(code);
-            Toast.makeText(CheckInActivity.this, code, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -78,10 +77,11 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initViews() {
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
-        edtTypeCode = (EditText) findViewById(R.id.edt_type_code);
-        btnSendCode = (ImageButton) findViewById(R.id.btn_send_code);
-
-        btnSendCode.setOnClickListener(this);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Quét QR");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void initCamera() {
@@ -193,19 +193,6 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         requestServer.sendRequest("fcm");
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_send_code:
-                String code = edtTypeCode.getText().toString();
-                if (!code.isEmpty()) {
-                    checkCode(code);
-                } else {
-                    Toast.makeText(this, "Chưa điền mã", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
