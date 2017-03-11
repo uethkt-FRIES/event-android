@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -22,6 +24,13 @@ import com.facebook.login.LoginResult;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.models.IUser;
 import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +44,9 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity {
 
     public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 5469;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -50,8 +62,41 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
         initViews();
+        initFirebaseAuthen();
         checkPermission();
         setupLoginFacebook();
+    }
+
+    private void initFirebaseAuthen() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     private void initializeView() {
@@ -82,33 +127,34 @@ public class LoginActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject object, GraphResponse response) {
-                                        Log.v("LoginActivity", response.toString());
-                                        // Application code
-                                        try {
-                                            String email = object.getString("email");
-                                            String birthday = "33"; // 01/31/1980 format
-                                            String name = object.getString("name");
-                                            String id = object.getString("id");
-                                            saveUserInformation(id, name, email, birthday);
-                                            directToCheckIn();
-                                            if(progressDialog != null){
-                                                progressDialog.dismiss();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                    }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name,email,gender,birthday");
-                        request.setParameters(parameters);
-                        request.executeAsync();
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+//                        GraphRequest request = GraphRequest.newMeRequest(
+//                                loginResult.getAccessToken(),
+//                                new GraphRequest.GraphJSONObjectCallback() {
+//                                    @Override
+//                                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                                        Log.v("LoginActivity", response.toString());
+//                                        // Application code
+//                                        try {
+//                                            String email = object.getString("email");
+//                                            String birthday = "33"; // 01/31/1980 format
+//                                            String name = object.getString("name");
+//                                            String id = object.getString("id");
+//                                            saveUserInformation(id, name, email, birthday);
+//                                            directToCheckIn();
+//                                            if(progressDialog != null){
+//                                                progressDialog.dismiss();
+//                                            }
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+//                                    }
+//                                });
+//                        Bundle parameters = new Bundle();
+//                        parameters.putString("fields", "id,name,email,gender,birthday");
+//                        request.setParameters(parameters);
+//                        request.executeAsync();
                     }
 
                     @Override
@@ -123,12 +169,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveUserInformation(String id, String name, String email, String birthDay){
+    private void saveUserInformation(String avatar, String name, String email){
                 sharedPreferencesMgr.setLogin(true);
                 sharedPreferencesMgr.setUserInfo(
                         new IUser(
-                                String.format("https://graph.facebook.com/%s/picture?type=large&width=720&height=720",
-                                        id),
+                                avatar,
                                 email,
                                 name));
     }
@@ -164,5 +209,38 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
 
         LoginActivity.this.finish();
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            String email = task.getResult().getUser().getEmail();
+                            String name = task.getResult().getUser().getDisplayName();
+                            String id = task.getResult().getUser().getUid();
+                            saveUserInformation(task.getResult().getUser().getPhotoUrl().toString(), name, email);
+                            directToCheckIn();
+                            if(progressDialog != null){
+                                progressDialog.dismiss();
+                            }
+                        }
+
+                        // ...
+                    }
+                });
     }
 }
