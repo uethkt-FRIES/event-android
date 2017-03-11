@@ -52,7 +52,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<ITimeLineHolder> {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i(TAG, child.toString());
                     ITimeLine timeLine = child.getValue(ITimeLine.class);
-                    arrTemp.add(timeLine);
+                    if (timeLine.getEnabled()) arrTemp.add(timeLine);
                 }
                 listAgendaItem = arrTemp;
                 notifyDataSetChanged();

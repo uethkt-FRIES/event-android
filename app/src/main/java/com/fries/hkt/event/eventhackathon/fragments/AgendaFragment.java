@@ -42,54 +42,13 @@ public class AgendaFragment extends Fragment {
         TimeLineAdapter timeLineAdapter = new TimeLineAdapter(getContext());
         rvAgenda.setAdapter(timeLineAdapter);
 
-        rootView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                ll.scrollToPositionWithOffset(10, 300);
-                ll.smoothScrollToPosition(rvAgenda, new RecyclerView.State(), 10);
-            }
-        }, 3000);
+//        rootView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+////                ll.scrollToPositionWithOffset(10, 300);
+//                ll.smoothScrollToPosition(rvAgenda, new RecyclerView.State(), 10);
+//            }
+//        }, 3000);
     }
 
-
-//    // ---------------------------------------------------------------------------------------------
-//    public class MyCustomLayoutManager extends LinearLayoutManager {
-//        private static final float MILLISECONDS_PER_INCH = 50f;
-//        private Context mContext;
-//
-//        public MyCustomLayoutManager(Context context) {
-//            super(context);
-//            mContext = context;
-//        }
-//
-//        @Override
-//        public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, final int position) {
-//
-//            LinearSmoothScroller smoothScroller = new LinearSmoothScroller(mContext) {
-//                        //This controls the direction in which smoothScroll looks
-//                        //for your view
-//                        @Override
-//                        public PointF computeScrollVectorForPosition(int targetPosition) {
-////                            return MyCustomLayoutManager.this.computeScrollVectorForPosition(targetPosition);
-//                            int yDelta = calculateCurrentDistanceToPosition(targetPosition);
-//                            return new PointF(0, yDelta);
-//                        }
-//
-//                        //This returns the milliseconds it takes to
-//                        //scroll one pixel.
-//                        @Override
-//                        protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-//                            return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
-//                        }
-//
-//                private int calculateCurrentDistanceToPosition(int targetPosition) {
-//                    int targetScrollY = targetPosition * itemHeight;
-//                    return targetScrollY - currentScrollY;
-//                }
-//                    };
-//
-//            smoothScroller.setTargetPosition(position);
-//            startSmoothScroll(smoothScroller);
-//        }
-//    }
 }
