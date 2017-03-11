@@ -8,8 +8,9 @@
     tools:context="com.fries.hkt.event.eventhackathon.activities.LoadingActivity">
 
     <ImageView
+        android:layout_margin="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_timy" />
+        android:src="@drawable/timy" />
 
 </LinearLayout>

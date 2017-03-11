@@ -59,12 +59,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(Map<String, String> msgData) {
         Bundle bundle = new Bundle();
-        if(msgData.containsKey("type]")){
-            if(msgData.get("type]").equals("1")){
+        if (msgData.containsKey("type]")) {
+            if (msgData.get("type]").equals("1")) {
                 Log.d("FCM", "ABCD");
                 handleMessageWithOpenQuickAnswer(msgData);
             }
-        }
+        } else {
             Intent intent = new Intent(this, LoadingActivity.class);
             intent.putExtras(bundle);
 
@@ -84,6 +84,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
         }
+    }
 
 
     private void handleMessageWithOpenQuickAnswer(Map<String, String> msgData){
