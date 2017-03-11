@@ -42,12 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             initializeView();
         }
-
-        sharedPreferencesMgr = new SharedPreferencesMgr(this);
-        if (sharedPreferencesMgr.isLoggedIn()) {
-            directToCheckIn();
-        }
         initViews();
+        checkPermission();
     }
 
     private void initializeView() {
@@ -83,19 +79,28 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CODE_DRAW_OVER_OTHER_APP_PERMISSION) {
-            //Check if the permission is granted or not.
-            if (resultCode == RESULT_OK) {
-                initializeView();
-            } else { //Permission is not available
-                Toast.makeText(this,
-                        "Draw over other app permission not available. Closing the application",
-                        Toast.LENGTH_SHORT).show();
+        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (!Settings.canDrawOverlays(this)) {
+                // You don't have permission
+                checkPermission();
 
                 finish();
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            else
+            {
+                //do as per your logic
+            }
+
+        }
+    }
+
+    public void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
+            }
         }
     }
 

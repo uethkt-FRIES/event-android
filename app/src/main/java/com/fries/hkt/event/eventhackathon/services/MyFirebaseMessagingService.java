@@ -2,10 +2,13 @@ package com.fries.hkt.event.eventhackathon.services;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -43,8 +46,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-
-
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
 
@@ -55,13 +56,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(Map<String, String> msgData) {
         if(msgData.containsKey("type")){
             if(msgData.get("type").equals("1")){
-                EventBus.getDefault().post(new ShowQuickAnswerEvent());
-                Log.d("type", msgData.get("type"));
+                handleMessageWithOpenQuickAnswer(msgData);
             }
-            Log.d("type", "hihi");
         }
-        Log.d("type", "hihi2");
-        EventBus.getDefault().post(new ShowQuickAnswerEvent());
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 
@@ -85,5 +82,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
     }
+
+    private void handleMessageWithOpenQuickAnswer(Map<String, String> msgData){
+        Bundle bundle = new Bundle();
+
+        if(msgData.containsKey("title")) bundle.putString("title", msgData.get("title"));
+        if(msgData.containsKey("question_id")) bundle.putString("question_id", msgData.get("question_id"));
+        if(msgData.containsKey("content")) bundle.putString("content", msgData.get("content"));
+        if(msgData.containsKey("as1")) bundle.putString("as1", msgData.get("as1"));
+        if(msgData.containsKey("as2")) bundle.putString("as2", msgData.get("as2"));
+        if(msgData.containsKey("as3")) bundle.putString("as3", msgData.get("as3"));
+        if(msgData.containsKey("as4")) bundle.putString("as4", msgData.get("as4"));
+
+        Intent intent = new Intent(this, PushDialogQuickAnswerService.class);
+        intent.putExtras(bundle);
+        startService(intent);
+
+    }
+
 
 }

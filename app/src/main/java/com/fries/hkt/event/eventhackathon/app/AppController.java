@@ -15,7 +15,7 @@ public class AppController extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        startService(new Intent(this, PushDialogQuickAnswerService.class));
+
         mInstance = this;
     }
 

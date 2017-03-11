@@ -3,9 +3,11 @@ package com.fries.hkt.event.eventhackathon.services;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.customview.QuickAnswerViewGroup;
 import com.fries.hkt.event.eventhackathon.eventbus.ShowQuickAnswerEvent;
+import com.fries.hkt.event.eventhackathon.models.QuestionBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,6 +33,10 @@ import org.greenrobot.eventbus.Subscribe;
  */
 
 public class PushDialogQuickAnswerService extends Service implements View.OnTouchListener,View.OnClickListener{
+
+
+    private QuestionBean mQuestion;
+    private String titleOfWindow;
 
     private WindowManager windowManager;
     private QuickAnswerViewGroup myViewGroup;
@@ -56,27 +63,36 @@ public class PushDialogQuickAnswerService extends Service implements View.OnTouc
     public void onCreate() {
         super.onCreate();
         initView();
-        EventBus.getDefault().register(this);
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        if (subView != null) windowManager.removeView(subView);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
+        Bundle bundle = intent.getExtras();
+        mQuestion = new QuestionBean(
+                bundle.getString("question_id"),
+                bundle.getString("content"),
+                bundle.getString("as1"),
+                bundle.getString("as2"),
+                bundle.getString("as3"),
+                bundle.getString("as4"));
+        fillDataToView();
+        return START_NOT_STICKY;
     }
 
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btn_send){
             //send answer to firebase
-            Toast.makeText(this, "Sending", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sending " + mQuestion.getQuestionId() + " to server.", Toast.LENGTH_SHORT).show();
         } else if(view.getId() == R.id.btn_cancel){
-            //close view
+            if (subView != null) windowManager.removeView(subView);
         }
     }
 
@@ -87,13 +103,13 @@ public class PushDialogQuickAnswerService extends Service implements View.OnTouc
         subView = minflater.inflate(R.layout.wm_quick_answer, myViewGroup);// nhet cai main vao cai viewGroup, de anh xa ra subView
         //dinh nghia param
         mParams = new WindowManager.LayoutParams();
-        mParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        mParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mParams.gravity = Gravity.CENTER;
         mParams.format = PixelFormat.TRANSLUCENT;//trong suot
         mParams.type = WindowManager.LayoutParams.TYPE_PHONE;// noi tren all be mat
         mParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS|WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;// khong bi gioi han boi man hinh|Su duoc nut home
-        windowManager.addView(myViewGroup,mParams);
+        windowManager.addView(subView, mParams);
         subView.setOnTouchListener(this);
 
         title = (TextView)subView.findViewById(R.id.title);
@@ -110,12 +126,36 @@ public class PushDialogQuickAnswerService extends Service implements View.OnTouc
         btnSend.setOnClickListener(this);
 
         subView.bringToFront();
-        fillDataToView();
+
 
     }
 
     private void fillDataToView() {
+        title.setText(titleOfWindow == null ? "Timy" : mQuestion.getContent());
+        content.setText(mQuestion.getContent() == null ? "Timy" : mQuestion.getContent());
+        if(!TextUtils.isEmpty(mQuestion.getAs1())){
+            rd1.setText(mQuestion.getAs1());
+        } else {
+            rd1.setVisibility(View.GONE);
+        }
 
+        if(!TextUtils.isEmpty(mQuestion.getAs2())){
+            rd2.setText(mQuestion.getAs2());
+        } else {
+            rd1.setVisibility(View.GONE);
+        }
+
+        if(!TextUtils.isEmpty(mQuestion.getAs3())){
+            rd3.setText(mQuestion.getAs3());
+        } else {
+            rd3.setVisibility(View.GONE);
+        }
+
+        if(!TextUtils.isEmpty(mQuestion.getAs4())){
+            rd4.setText(mQuestion.getAs4());
+        } else {
+            rd4.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -137,14 +177,9 @@ public class PushDialogQuickAnswerService extends Service implements View.OnTouc
     }
 
     private void updateView(int x, int y) {
-        mParams.x = x+xparam;
-        mParams.y=y+yparam;
-        windowManager.updateViewLayout(myViewGroup,mParams);
+        mParams.x = x + xparam;
+        mParams.y = y + yparam;
+        windowManager.updateViewLayout(subView,mParams);
     }
 
-    @Subscribe
-    private void onOpenQuickAnswer(ShowQuickAnswerEvent showQuickAnswerEvent){
-        Log.d("hihi", "hihe");
-        initView();
-    }
 }
