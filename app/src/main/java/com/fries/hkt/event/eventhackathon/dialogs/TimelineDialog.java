@@ -61,6 +61,8 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
 
         ((TextView)findViewById(R.id.tv_place)).setText(timeLine.getPlace());
 
+        ((TextView)findViewById(R.id.tv_description)).setText(timeLine.getDescription());
+
         ((TextView)findViewById(R.id.tv_date_time)).setText(getTime(timeLine.getStart_time()) + " - " + getTime(timeLine.getEnd_time()));
 
         long time = (timeLine.getEnd_time() - timeLine.getStart_time())/60000;

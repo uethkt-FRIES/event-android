@@ -149,6 +149,7 @@
             android:layout_marginTop="@dimen/margin_line_text"
             android:text="Phan nay co noi dung la ... \n(neu dai qua thi se gay ra roi mat)"
             android:textColor="@color/black_54"
+            android:maxLines="3"
             android:textSize="@dimen/t_size_small_1" />
 
     </LinearLayout>

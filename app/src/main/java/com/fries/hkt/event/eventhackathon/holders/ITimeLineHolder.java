@@ -35,7 +35,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     public static final int STATE_WAITING = 2;
     private static final String TAG = ITimeLine.class.getSimpleName();
 
-    private TextView tvName, tvTime, tvDate, tvPlace;
+    private TextView tvName, tvTime, tvDate, tvPlace, tvSubDescription;
     private ImageView ivState;
     private View rootView;
     private ProgressBar pbState;
@@ -54,6 +54,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         tvDate = (TextView) itemView.findViewById(R.id.tv_date);
         tvPlace = (TextView) itemView.findViewById(R.id.tv_place);
+        tvSubDescription = (TextView) itemView.findViewById(R.id.tv_sub_description);
         ivState = (ImageView) itemView.findViewById(R.id.iv_state);
         pbState = (ProgressBar) itemView.findViewById(R.id.pb_state);
         vState = itemView.findViewById(R.id.v_state);
@@ -73,6 +74,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         setState();
         setDateTime();
         tvPlace.setText(timeLine.getPlace());
+        tvSubDescription.setText(timeLine.getDescription());
     }
 
     private View.OnClickListener onClickRootView = new View.OnClickListener() {
