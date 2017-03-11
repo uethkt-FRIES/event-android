@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.models.IUser;
+import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 
 /**
  * Created by tmq on 10/03/2017.
@@ -22,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
+
+    SharedPreferencesMgr sharedPreferencesMgr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +41,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
         } else {
             initializeView();
+        }
+
+        sharedPreferencesMgr = new SharedPreferencesMgr(this);
+        if (sharedPreferencesMgr.isLoggedIn()) {
+            directToCheckIn();
         }
         initViews();
     }
@@ -65,10 +74,9 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 Toast.makeText(LoginActivity.this, R.string.txt_login_success, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                Intent intent = new Intent(LoginActivity.this, CheckInActivity.class);
-                startActivity(intent);
-
-                LoginActivity.this.finish();
+                sharedPreferencesMgr.setLogin(true);
+                sharedPreferencesMgr.setUserInfo(new IUser("", "minhquylt95@gmail.com", "Quy dz"));
+                directToCheckIn();
             }
         }, 1000);
     }
@@ -89,5 +97,12 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void directToCheckIn(){
+        Intent intent = new Intent(LoginActivity.this, CheckInActivity.class);
+        startActivity(intent);
+
+        LoginActivity.this.finish();
     }
 }

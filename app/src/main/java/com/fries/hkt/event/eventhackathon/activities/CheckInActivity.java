@@ -21,12 +21,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.app.AppConfig;
+import com.fries.hkt.event.eventhackathon.network.RequestServer;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
+import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -144,22 +153,44 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void checkCode(String code) {
+    private void checkCode(final String code) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.txt_please_wait));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
 
-
-        { // Run on Thread
-            Toast.makeText(CheckInActivity.this, R.string.txt_login_success, Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-
-            Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
-            startActivity(intent);
-
-            CheckInActivity.this.finish();
+        final SharedPreferencesMgr preferencesMgr = new SharedPreferencesMgr(this);
+        JSONObject json = new JSONObject();//event_id, email, fcm_token
+        try {
+            json.put("event_id", code);
+            json.put("email", preferencesMgr.getUserInfo().getEmail());
+            json.put("fcm_token", FirebaseInstanceId.getInstance().getToken());
         }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, json.toString());
+        RequestServer requestServer = new RequestServer(this, Request.Method.POST, AppConfig.REGISTER_FCM, json);
+        requestServer.setListener(new RequestServer.ServerListener() {
+            @Override
+            public void onReceive(boolean error, JSONObject response, String message) throws JSONException {
+                if (error) {
+                    Toast.makeText(CheckInActivity.this, message, Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, response.toString());
+                    return;
+                }
+                preferencesMgr.setEventId(code);
+
+                Toast.makeText(CheckInActivity.this, R.string.txt_login_success, Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+                Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                CheckInActivity.this.finish();
+            }
+        });
+        requestServer.sendRequest("fcm");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.fries.hkt.event.eventhackathon.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.fries.hkt.event.eventhackathon.models.IUser;
 
@@ -20,6 +21,20 @@ public class SharedPreferencesMgr {
         this.mContext = context;
     }
 
+    public void setLogin(boolean isLoggedIn) {
+        SharedPreferences preferences = mContext.getSharedPreferences(APP, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("is_login", isLoggedIn);
+
+        editor.apply();
+    }
+
+    public boolean isLoggedIn() {
+        SharedPreferences preferences = mContext.getSharedPreferences(APP, Context.MODE_PRIVATE);
+        return preferences.getBoolean("is_login", false);
+    }
+
     public void setUserInfo(IUser user) {
         SharedPreferences preferences = mContext.getSharedPreferences(USER, Context.MODE_PRIVATE);
 
@@ -31,7 +46,7 @@ public class SharedPreferencesMgr {
         editor.apply();
     }
 
-    public IUser getUserInfo(IUser user) {
+    public IUser getUserInfo() {
         SharedPreferences preferences = mContext.getSharedPreferences(USER, Context.MODE_PRIVATE);
 
         String avatar = preferences.getString("avatar", "");
@@ -41,7 +56,7 @@ public class SharedPreferencesMgr {
         return new IUser(avatar, email, name);
     }
 
-    public void setEventId(String id){
+    public void setEventId(String id) {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();
@@ -50,7 +65,7 @@ public class SharedPreferencesMgr {
         editor.apply();
     }
 
-    public String getEventId(){
+    public String getEventId() {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
 
         return preferences.getString("id", "");
