@@ -34,14 +34,6 @@ public class TimeLineAdapter extends RecyclerView.Adapter<ITimeLineHolder> {
         mContext = context;
 
         listAgendaItem = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-//            AgendaItem item = new AgendaItem("Item " + i);
-//            if (i < 10) item.setState(AgendaItem.STATE_PASSED);
-//            else if (i == 10) item.setState(AgendaItem.STATE_RESPONDING);
-//            else item.setState(AgendaItem.STATE_WAITING);
-//
-//            listAgendaItem.add(item);
-//        }
 
         initDataFromFirebase();
     }

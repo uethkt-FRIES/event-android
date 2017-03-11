@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -29,8 +30,9 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     public static final int STATE_PASSED = 0;
     public static final int STATE_RESPONDING = 1;
     public static final int STATE_WAITING = 2;
+    private static final String TAG = ITimeLine.class.getSimpleName();
 
-    private TextView tvName, tvTime, tvDate;
+    private TextView tvName, tvTime, tvDate, tvPlace;
     private ImageView ivState;
     private View rootView;
     private ProgressBar pbState;
@@ -48,6 +50,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
         tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         tvDate = (TextView) itemView.findViewById(R.id.tv_date);
+        tvPlace = (TextView) itemView.findViewById(R.id.tv_place);
         ivState = (ImageView) itemView.findViewById(R.id.iv_state);
         pbState = (ProgressBar) itemView.findViewById(R.id.pb_state);
         vState = itemView.findViewById(R.id.v_state);
@@ -62,6 +65,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         setAgendaItemText();
         setState();
         setDateTime();
+        tvPlace.setText(timeLine.getPlace());
     }
 
     private View.OnClickListener onClickRootView = new View.OnClickListener() {
@@ -141,14 +145,14 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
 
     private void setDateTime(){
 //        long milliseconds = Long.parseLong(timeLine.getStart_time());
-        long milliseconds = SystemClock.currentThreadTimeMillis() - 3600;
+        long milliseconds = System.currentTimeMillis();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
         int hours = calendar.get(Calendar.HOUR);
         int mins = calendar.get(Calendar.MINUTE);
-        int am_pm = calendar.get(Calendar.AM_PM);
+        String am_pm = (calendar.get(Calendar.AM_PM) == Calendar.AM) ? "AM" : "PM";
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
         int year = calendar.get(Calendar.YEAR);
 
         tvTime.setText(hours + ":" + mins + " " + am_pm);
