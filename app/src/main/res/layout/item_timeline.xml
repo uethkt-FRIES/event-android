@@ -9,8 +9,8 @@
     <View
         android:id="@+id/v_state"
         android:layout_width="4dp"
-        android:layout_marginTop="@dimen/padding_view"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/padding_view"
         android:background="@color/colorPrimary" />
 
     <LinearLayout
@@ -127,12 +127,22 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/iv_gift"
                 android:layout_width="@dimen/i_icon_size_tiny"
                 android:layout_height="@dimen/i_icon_size_tiny"
+                android:padding="1dp"
+                android:src="@drawable/ic_giftcard" />
+
+            <ImageView
+                android:id="@+id/iv_qa"
+                android:layout_width="@dimen/i_icon_size_tiny"
+                android:layout_height="@dimen/i_icon_size_tiny"
+                android:layout_marginStart="4dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_message" />
 
             <ImageView
+                android:id="@+id/iv_tea"
                 android:layout_width="@dimen/i_icon_size_tiny"
                 android:layout_height="@dimen/i_icon_size_tiny"
                 android:layout_marginStart="4dp"
@@ -147,9 +157,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_line_text"
+            android:maxLines="3"
             android:text="Phan nay co noi dung la ... \n(neu dai qua thi se gay ra roi mat)"
             android:textColor="@color/black_54"
-            android:maxLines="3"
             android:textSize="@dimen/t_size_small_1" />
 
     </LinearLayout>

@@ -21,8 +21,10 @@ import com.fries.hkt.event.eventhackathon.models.AgendaItem;
 import com.fries.hkt.event.eventhackathon.models.ITimeLine;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by tmq on 11/03/2017.
@@ -36,7 +38,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     private static final String TAG = ITimeLine.class.getSimpleName();
 
     private TextView tvName, tvTime, tvDate, tvPlace, tvSubDescription;
-    private ImageView ivState;
+    private ImageView ivState, ivGift, ivQA, ivTea;
     private View rootView;
     private ProgressBar pbState;
     private View vState;
@@ -58,6 +60,9 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         ivState = (ImageView) itemView.findViewById(R.id.iv_state);
         pbState = (ProgressBar) itemView.findViewById(R.id.pb_state);
         vState = itemView.findViewById(R.id.v_state);
+        ivGift = (ImageView) itemView.findViewById(R.id.iv_gift);
+        ivQA = (ImageView) itemView.findViewById(R.id.iv_qa);
+        ivTea = (ImageView) itemView.findViewById(R.id.iv_tea);
 
         // Set other
         rootView.setOnClickListener(onClickRootView);
@@ -75,6 +80,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         setDateTime();
         tvPlace.setText(timeLine.getPlace());
         tvSubDescription.setText(timeLine.getDescription());
+        setRelated();
     }
 
     private View.OnClickListener onClickRootView = new View.OnClickListener() {
@@ -142,6 +148,22 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
 
         tvTime.setText(hours + ":" + mins + " " + am_pm);
         tvDate.setText(day + ", " + month + " " + year);
+    }
+
+    private void setRelated() {
+        String related = timeLine.getRelated();
+        ivGift.setVisibility(View.GONE);
+        ivTea.setVisibility(View.GONE);
+        ivQA.setVisibility(View.GONE);
+        if (related == null) return;
+
+        Log.i(TAG, related);
+        String[] arr = related.split(";");
+        for (String item : arr) {
+            if (item.equalsIgnoreCase("gift")) ivGift.setVisibility(View.VISIBLE);
+            else if (item.equalsIgnoreCase("tea")) ivTea.setVisibility(View.VISIBLE);
+            else if (item.equalsIgnoreCase("qa")) ivQA.setVisibility(View.VISIBLE);
+        }
     }
 
     public View getRootView() {

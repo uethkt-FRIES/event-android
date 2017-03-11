@@ -1,6 +1,7 @@
 package com.fries.hkt.event.eventhackathon.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by tmq on 11/03/2017.
@@ -19,6 +20,7 @@ public class ITimeLine {
     private ArrayList<IPool> pool;
     private ArrayList<IPoolUser> pool_users;
     private ArrayList<IQuestion> question;
+    private String related;
     private long start_time;
 
     public ITimeLine(){}
@@ -69,6 +71,10 @@ public class ITimeLine {
 
     public boolean getEnabled() {
         return enabled;
+    }
+
+    public String getRelated() {
+        return related;
     }
 
     // ------------------------------- Class -------------------------------------------------------
