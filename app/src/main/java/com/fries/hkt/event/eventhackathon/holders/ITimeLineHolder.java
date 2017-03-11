@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.dialogs.TimelineDialog;
 import com.fries.hkt.event.eventhackathon.models.AgendaItem;
 import com.fries.hkt.event.eventhackathon.models.ITimeLine;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
@@ -73,11 +74,12 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     private View.OnClickListener onClickRootView = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final Dialog d = new Dialog(mContext, R.style.AppTheme_OverlapStatusBar);
+//            final Dialog d = new Dialog(mContext, R.style.AppTheme_OverlapStatusBar);
+            final TimelineDialog d = new TimelineDialog(mContext);
 
             d.setContentView(R.layout.dialog_agenda_details_full);
             d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            d.setTitle(tvName.getText());
+            d.setTitle("");
             d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -88,7 +90,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
             d.show();
             d.getWindow().setAttributes(lp);
 
-            ImageView ivClose = (ImageView) d.findViewById(R.id.iv_close);
+            View ivClose = d.findViewById(R.id.iv_close);
             ivClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

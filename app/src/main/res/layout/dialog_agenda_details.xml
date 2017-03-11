@@ -113,6 +113,7 @@ Thong tin chi tiet cua tiet muc Khai mac
 
 
     <Button
+        android:id="@+id/btn_ask"
         android:layout_width="match_parent"
         android:layout_height="@dimen/btn_height_dialog"
         android:layout_marginEnd="24dp"
@@ -124,6 +125,7 @@ Thong tin chi tiet cua tiet muc Khai mac
         android:textSize="@dimen/t_size_body" />
 
     <Button
+        android:id="@+id/btn_feedback"
         android:layout_width="match_parent"
         android:layout_height="@dimen/btn_height_dialog"
         android:layout_marginEnd="24dp"
