@@ -15,8 +15,10 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.activities.LoadingActivity;
 import com.fries.hkt.event.eventhackathon.customview.QuickAnswerViewGroup;
 import com.fries.hkt.event.eventhackathon.eventbus.ShowQuickAnswerEvent;
+import com.fries.hkt.event.eventhackathon.models.QuestionBean;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -28,6 +30,7 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
+    QuestionBean questionBean;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -58,49 +61,69 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Bundle bundle = new Bundle();
         if(msgData.containsKey("type]")){
             if(msgData.get("type]").equals("1")){
-                Log.d("HIHI", msgData.get("type]"));
+                Log.d("FCM", "ABCD");
                 handleMessageWithOpenQuickAnswer(msgData);
             }
         }
+            Intent intent = new Intent(this, LoadingActivity.class);
+            intent.putExtras(bundle);
 
+            PendingIntent pendingIntent = PendingIntent.getService(this, 0 /* Request code */, intent,
+                    0);
 
-        Intent intent = new Intent(this, PushDialogQuickAnswerService.class);
-        intent.putExtras(bundle);
+            NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Timy")
+                    .setContentText(msgData.get("title"))
+                    .setAutoCancel(true)
+                    .setOngoing(true)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(pendingIntent);
 
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0 /* Request code */, intent,
-                0);
+            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Timy")
-                .setContentText(msgData.get("title"))
-                .setAutoCancel(true)
-                .setOngoing(true)
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(pendingIntent);
+            notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
+        }
 
-        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
-
-
-    }
 
     private void handleMessageWithOpenQuickAnswer(Map<String, String> msgData){
         Bundle bundle = new Bundle();
+        QuestionBean questionBean = new QuestionBean();
+        Log.d("HIhi", msgData.get("question_id]"));
+        if(msgData.containsKey("question_id]")) {
+            bundle.putString("question_id", msgData.get("question_id]"));
+            questionBean.setQuestionId(msgData.get("question_id]"));
+        }
+        if(msgData.containsKey("content]")){
+            bundle.putString("content", msgData.get("content]"));
+            questionBean.setQuestionId(msgData.get("content]"));
+        }
+        if(msgData.containsKey("as1]")){
+            bundle.putString("as1", msgData.get("as1]"));
+            questionBean.setQuestionId(msgData.get("as1]"));
+        }
+        if(msgData.containsKey("as2]")){
+            bundle.putString("as2", msgData.get("as2]"));
+            questionBean.setQuestionId(msgData.get("as2]"));
+        }
+        if(msgData.containsKey("as3]")){
+            bundle.putString("as3", msgData.get("as3]"));
+            questionBean.setQuestionId(msgData.get("as4]"));
+        }
+        if(msgData.containsKey("as4]")){
+            bundle.putString("as4", msgData.get("as4]"));
+            questionBean.setQuestionId(msgData.get("as4]"));
+        }
+        QuestionBean qq = new QuestionBean(
+                bundle.getString("question_id"),
+                bundle.getString("content"),
+                bundle.getString("as1"),
+                bundle.getString("as2"),
+                bundle.getString("as3"),
+                bundle.getString("as4"));
 
-        if(msgData.containsKey("title]")) bundle.putString("title", msgData.get("title]"));
-        if(msgData.containsKey("question_id]")) bundle.putString("question_id", msgData.get("question_id]"));
-        if(msgData.containsKey("content]")) bundle.putString("content", msgData.get("content]"));
-        if(msgData.containsKey("as1]")) bundle.putString("as1", msgData.get("as1]"));
-        if(msgData.containsKey("as2]")) bundle.putString("as2", msgData.get("as2]"));
-        if(msgData.containsKey("as3]")) bundle.putString("as3", msgData.get("as3]"));
-        if(msgData.containsKey("as4]")) bundle.putString("as4", msgData.get("as4]"));
 
-        Intent intent = new Intent(this, PushDialogQuickAnswerService.class);
-        intent.putExtras(bundle);
-        startService(intent);
-
+        EventBus.getDefault().post(qq);
     }
 
 

@@ -1,10 +1,12 @@
 package com.fries.hkt.event.eventhackathon.models;
 
+import java.io.Serializable;
+
 /**
  * Created by hungtran on 3/11/17.
  */
 
-public class QuestionBean {
+public class QuestionBean implements Serializable{
     private String questionId;
     private String content;
     private String as1;

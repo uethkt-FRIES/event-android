@@ -89,7 +89,7 @@ public class CheckInActivity extends AppCompatActivity{
         initViews();
         initCamera();
 
-//        checkCode("-KetXc5P8HCrQy-yIHA9");
+        checkCode("-KetXc5P8HCrQy-yIHA9");
     }
 
     private void initViews() {
@@ -97,8 +97,8 @@ public class CheckInActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Quét QR");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
     }
 
@@ -234,6 +234,9 @@ public class CheckInActivity extends AppCompatActivity{
         });
 
         requestServer.sendRequest("fcm");
+
+
+
 
     }
 
