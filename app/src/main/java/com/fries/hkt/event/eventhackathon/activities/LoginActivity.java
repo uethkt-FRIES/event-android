@@ -68,9 +68,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginWithFaceBook(View v){
         progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
         progressDialog.setMessage(getString(R.string.txt_please_wait));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
+//        progressDialog.show();
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
     }
 
