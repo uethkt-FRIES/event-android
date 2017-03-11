@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
@@ -23,8 +23,7 @@
         android:gravity="top|left"
         android:hint="Đặt câu hỏi của bạn tại đây"
         android:minHeight="180dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp" />
+        android:padding="@dimen/padding_layout" />
 
     <View
         android:layout_width="match_parent"

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,10 @@ public class AskQuestionDialog extends Dialog {
 
     public AskQuestionDialog(Context context) {
         super(context);
+    }
+
+    public AskQuestionDialog(@NonNull Context context, @StyleRes int themeResId) {
+        super(context, themeResId);
     }
 
     @Override

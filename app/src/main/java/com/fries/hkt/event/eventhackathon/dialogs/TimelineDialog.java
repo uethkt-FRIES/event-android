@@ -73,19 +73,19 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_ask:
                 Log.i("ok", "ask");
-                AskQuestionDialog d1 = new AskQuestionDialog(getContext());
+                AskQuestionDialog d1 = new AskQuestionDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                 d1.setDlFeed(this);
                 d1.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 
                 d1.setTitle("");
-                WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams();
-                lp1.copyFrom(d1.getWindow().getAttributes());
-                lp1.width = WindowManager.LayoutParams.MATCH_PARENT;
-                lp1.height = WindowManager.LayoutParams.MATCH_PARENT;
+//                WindowManager.LayoutParams lp1 = new WindowManager.LayoutParams();
+//                lp1.copyFrom(d1.getWindow().getAttributes());
+//                lp1.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                lp1.height = WindowManager.LayoutParams.MATCH_PARENT;
 
                 this.hide();
                 d1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                d1.getWindow().setAttributes(lp1);
+//                d1.getWindow().setAttributes(lp1);
 
                 d1.show();
 
@@ -93,7 +93,7 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
             case R.id.btn_feedback:
                 Log.i("ok", "feed");
 
-                FeedbackDialog d = new FeedbackDialog(getContext(), R.style.AppTheme_OverlapStatusBar);
+                FeedbackDialog d = new FeedbackDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                 d.setDlFeed(this);
                 d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
                 d.setTitle("");
