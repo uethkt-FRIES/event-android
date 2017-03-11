@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.fries.hkt.event.eventhackathon.fragments.AgendaFragment;
 import com.fries.hkt.event.eventhackathon.fragments.EventInfoFragment;
+import com.fries.hkt.event.eventhackathon.fragments.MapFragment;
 
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -22,8 +23,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return AgendaFragment.newInstance();
-            default:
+            case 1:
                 return EventInfoFragment.newInstance(1);
+            default:
+                return MapFragment.newInstance();
         }
     }
 
