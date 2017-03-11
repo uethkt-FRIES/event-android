@@ -64,7 +64,7 @@ public class TimelineDialog extends Dialog implements View.OnClickListener{
             case R.id.btn_feedback:
                 Log.i("ok", "feed");
 
-                FeedbackDialog d = new FeedbackDialog(getContext());
+                FeedbackDialog d = new FeedbackDialog(getContext(), R.style.AppTheme_OverlapStatusBar);
                 d.setDlFeed(this);
                 d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
                 d.setTitle("");

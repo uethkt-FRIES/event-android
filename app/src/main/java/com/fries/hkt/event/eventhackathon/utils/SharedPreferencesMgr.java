@@ -87,17 +87,29 @@ public class SharedPreferencesMgr {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
         return preferences.getString("banner", "");
     }
+
     public String getEventName() {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
         return preferences.getString("name", "");
     }
+
     public String getEventMap() {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
         return preferences.getString("map", "");
     }
+
     public String getEventPlace() {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
         return preferences.getString("place", "");
     }
 
+
+    public void removeEvent() {
+        SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("id");
+
+        editor.apply();
+    }
 }

@@ -24,11 +24,18 @@ public class LoadingActivity extends AppCompatActivity {
 
                 } finally {
                     SharedPreferencesMgr sharedPreferencesMgr = new SharedPreferencesMgr(LoadingActivity.this);
-                    if(sharedPreferencesMgr.isLoggedIn()){
-                        Intent i = new Intent(LoadingActivity.this,
-                                MainActivity.class);
-                        startActivity(i);
-                        finish();
+                    if (sharedPreferencesMgr.isLoggedIn()) {
+                        if (sharedPreferencesMgr.getEventId().isEmpty()) {
+                            Intent i = new Intent(LoadingActivity.this,
+                                    CheckInActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(LoadingActivity.this,
+                                    MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
                     } else {
                         Intent i = new Intent(LoadingActivity.this,
                                 LoginActivity.class);

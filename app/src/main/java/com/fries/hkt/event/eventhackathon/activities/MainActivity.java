@@ -1,5 +1,6 @@
 package com.fries.hkt.event.eventhackathon.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -156,6 +157,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        switch (id) {
+            case R.id.nav_gift:
+                break;
+            case R.id.nav_logout:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sharedPreferencesMgr.removeEvent();
+                    }
+                }).start();
+
+                Intent i = new Intent(this, LoadingActivity.class);
+                startActivity(i);
+                finish();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

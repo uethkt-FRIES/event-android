@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,10 @@ public class FeedbackDialog extends Dialog {
 
     public FeedbackDialog(Context context) {
         super(context);
+    }
+
+    public FeedbackDialog(@NonNull Context context, @StyleRes int themeResId) {
+        super(context, themeResId);
     }
 
     @Override
