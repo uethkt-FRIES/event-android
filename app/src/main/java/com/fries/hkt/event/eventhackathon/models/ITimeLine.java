@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ITimeLine {
 
-    private String end_time;
+    private long end_time;
     ArrayList<IFeedback> feedback;
     private boolean is_online;
     ArrayList<IKhachMoi> khachmoi;
@@ -17,11 +17,11 @@ public class ITimeLine {
     ArrayList<IPool> pool;
     ArrayList<IPoolUser> pool_users;
     ArrayList<IQuestion> question;
-    private String start_time;
+    private long start_time;
 
     public ITimeLine(){}
 
-    public ITimeLine(String end_time, ArrayList<IFeedback> feedback, boolean is_online, ArrayList<IKhachMoi> khachmoi, String name, String place, ArrayList<IPool> pool, ArrayList<IPoolUser> pool_users, ArrayList<IQuestion> question, String start_time) {
+    public ITimeLine(long end_time, ArrayList<IFeedback> feedback, boolean is_online, ArrayList<IKhachMoi> khachmoi, String name, String place, ArrayList<IPool> pool, ArrayList<IPoolUser> pool_users, ArrayList<IQuestion> question, long start_time) {
         this.end_time = end_time;
         this.feedback = feedback;
         this.is_online = is_online;
@@ -34,7 +34,7 @@ public class ITimeLine {
         this.start_time = start_time;
     }
 
-    public String getEnd_time() {
+    public long getEnd_time() {
         return end_time;
     }
 
@@ -70,7 +70,7 @@ public class ITimeLine {
         return question;
     }
 
-    public String getStart_time() {
+    public long getStart_time() {
         return start_time;
     }
 

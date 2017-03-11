@@ -3,7 +3,9 @@ package com.fries.hkt.event.eventhackathon.holders;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,6 +76,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
             final Dialog d = new Dialog(mContext, R.style.AppTheme_OverlapStatusBar);
 
             d.setContentView(R.layout.dialog_agenda_details_full);
+            d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             d.setTitle(tvName.getText());
             d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 
@@ -100,8 +103,8 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     }
 
     public void setState() {
-        long startTime = Long.parseLong(timeLine.getStart_time());
-        long endTime = Long.parseLong(timeLine.getEnd_time());
+        long startTime = timeLine.getStart_time();
+        long endTime = timeLine.getEnd_time();
         long currentTime = SystemClock.currentThreadTimeMillis();
         int state = 0;
         if (currentTime<startTime) state = STATE_PASSED;

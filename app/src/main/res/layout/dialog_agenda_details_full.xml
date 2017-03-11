@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="#000000ff">
 
     <ImageView
         android:id="@+id/iv_close"
@@ -17,25 +17,16 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="0dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_view"
+        android:layout_marginEnd="@dimen/padding_view"
+        android:layout_marginStart="@dimen/padding_view"
+        android:layout_marginTop="?attr/actionBarSize"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/padding_view"
+        app:cardElevation="20dp">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/padding_view"
-            android:layout_marginEnd="@dimen/padding_view"
-            android:layout_marginStart="@dimen/padding_view"
-            android:layout_marginTop="?attr/actionBarSize"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/padding_view"
-            app:cardElevation="20dp">
-
-            <include layout="@layout/dialog_agenda_details" />
-
-        </android.support.v7.widget.CardView>
+        <include layout="@layout/dialog_agenda_details" />
 
     </android.support.v7.widget.CardView>
 
