@@ -21,7 +21,7 @@ import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
+    public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 5469;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -31,17 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-
-
-            //If the draw over permission is not available open the settings screen
-            //to grant the permission.
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION);
-        } else {
-            initializeView();
-        }
         initViews();
         checkPermission();
     }
@@ -84,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 // You don't have permission
                 checkPermission();
 
-                finish();
             }
             else
             {
