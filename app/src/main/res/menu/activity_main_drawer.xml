@@ -18,14 +18,21 @@
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
         <!--android:title="Tools" />-->
-
         <item
-            android:id="@+id/nav_gift"
-            android:icon="@drawable/ic_giftcard"
-            android:title="Tools" />
+            android:checkableBehavior="single"
+            android:title="">
+            <menu>
+                <item
+                    android:id="@+id/nav_gift"
+                    android:icon="@drawable/ic_giftcard"
+                    android:title="Quà tặng" />
+            </menu>
+
+        </item>
+
     </group>
 
-    <item android:title="Other">
+    <item android:title="">
         <menu>
             <!--<item-->
             <!--android:id="@+id/nav_share"-->
