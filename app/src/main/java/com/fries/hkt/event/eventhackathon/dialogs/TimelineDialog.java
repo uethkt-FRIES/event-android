@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.models.ITimeLine;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
+import com.fries.hkt.event.eventhackathon.utils.MyTime;
 
 import java.util.Calendar;
 
@@ -52,24 +53,30 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
         feedbackBtn = (Button) findViewById(R.id.btn_feedback);
         feedbackBtn.setOnClickListener(this);
 
+        ((TextView) findViewById(R.id.tv_name)).setText(timeLine.getName());
+
         if (timeLine.getIs_online()) {
             ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
         } else {
             ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
         }
 
-        ((TextView)findViewById(R.id.tv_place)).setText(timeLine.getPlace());
+        ((TextView) findViewById(R.id.tv_place)).setText(timeLine.getPlace());
 
-        ((TextView)findViewById(R.id.tv_description)).setText(timeLine.getDescription());
+        ((TextView) findViewById(R.id.tv_description)).setText(timeLine.getDescription());
 
-        ((TextView)findViewById(R.id.tv_date_time)).setText(getTime(timeLine.getStart_time()) + " - " + getTime(timeLine.getEnd_time()));
 
-        long time = (timeLine.getEnd_time() - timeLine.getStart_time())/60000;
-        Log.i(TAG, time + "");
-        ((TextView)findViewById(R.id.tv_space_time)).setText(time + " phút");
+        if (MyTime.changeDay(timeLine.getStart_time(), timeLine.getEnd_time())) {
+            ((TextView) findViewById(R.id.tv_date_time)).setText(MyTime.timeToDayHour(timeLine.getStart_time()) + " - " + MyTime.timeToDayHour(timeLine.getEnd_time()));
+        } else {
+            ((TextView) findViewById(R.id.tv_date_time)).setText(getTime(timeLine.getStart_time()) + " - " + getTime(timeLine.getEnd_time()));
+        }
+
+        long time = timeLine.getEnd_time() - timeLine.getStart_time();
+        ((TextView) findViewById(R.id.tv_space_time)).setText("Khoảng: " +MyTime.longtime(time) + " phút");
 
         String related = timeLine.getRelated();
-        if (related!=null && !related.isEmpty() && related.contains("QA")) {
+        if (related != null && !related.isEmpty() && related.contains("QA")) {
             askBtn.setEnabled(true);
             askBtn.setOnClickListener(this);
             askBtn.setAlpha(1f);

@@ -18,8 +18,7 @@
             android:id="@+id/iv_state"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:src="@color/black_54"
-            />
+            android:src="@color/black_54" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -29,19 +28,6 @@
             android:text="Khai mac"
             android:textColor="@color/black_87"
             android:textSize="@dimen/t_size_title" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_space_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30 phut"
-            android:textColor="@color/black_54"
-            android:textSize="@dimen/t_size_body" />
 
     </LinearLayout>
 
@@ -66,15 +52,37 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_date_time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="4dp"
-        android:text="Th2 06 thg 03 luc 18h - 18h30"
-        android:textColor="@color/black_54"
-        android:textSize="@dimen/t_size_small" />
+        android:layout_marginEnd="@dimen/padding_layout"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/tv_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Th2 06 thg 03 luc 18h - 18h30"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_small" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_space_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 phut"
+            android:textColor="@color/black_54"
+            android:textSize="@dimen/t_size_small" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_description"
@@ -99,13 +107,13 @@ Thong tin chi tiet cua tiet muc Khai mac
         android:textSize="@dimen/t_size_body" />
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginEnd="24dp"-->
-        <!--android:layout_marginStart="24dp"-->
-        <!--android:layout_marginTop="@dimen/padding_layout"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginEnd="24dp"-->
+    <!--android:layout_marginStart="24dp"-->
+    <!--android:layout_marginTop="@dimen/padding_layout"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@color/white" />-->
 
     <View
         android:layout_width="match_parent"

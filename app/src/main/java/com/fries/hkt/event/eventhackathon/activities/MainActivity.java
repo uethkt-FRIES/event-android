@@ -161,8 +161,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_gift:
-                break;
             case R.id.nav_logout:
                 new Thread(new Runnable() {
                     @Override

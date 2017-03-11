@@ -114,7 +114,7 @@ public class SharedPreferencesMgr {
         SharedPreferences preferences = mContext.getSharedPreferences(EVENT, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove("id");
+        editor.clear();
 
         editor.apply();
     }

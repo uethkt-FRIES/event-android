@@ -20,6 +20,9 @@ import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 
 public class EventInfoFragment extends Fragment {
 
+
+    private static final String TAG = EventInfoFragment.class.getSimpleName();
+
     public EventInfoFragment() {
     }
 
@@ -38,6 +41,7 @@ public class EventInfoFragment extends Fragment {
     private void initViews(View rootView) {
         SharedPreferencesMgr preferencesMgr = new SharedPreferencesMgr(getContext());
         WebView wvInfo = (WebView) rootView.findViewById(R.id.wv_event_info);
+        Log.i(TAG, preferencesMgr.getOverview());
         wvInfo.getSettings().setJavaScriptEnabled(true);
         String html = "<!doctype html><html><head><base href=\"/\"><meta charset=\"utf-8\"></head><body>" + preferencesMgr.getOverview() + "</body></html>";
 

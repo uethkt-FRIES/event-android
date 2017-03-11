@@ -33,7 +33,7 @@
         <activity
             android:name=".activities.CheckInActivity"
             android:label="@string/lb_check_in_acti"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.CheckIn" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
