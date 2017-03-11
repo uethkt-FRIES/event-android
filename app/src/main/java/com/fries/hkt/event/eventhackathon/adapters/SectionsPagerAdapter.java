@@ -24,7 +24,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return AgendaFragment.newInstance();
             case 1:
-                return EventInfoFragment.newInstance(1);
+                return EventInfoFragment.newInstance();
             default:
                 return MapFragment.newInstance();
         }

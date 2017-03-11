@@ -11,7 +11,7 @@ public class ITimeLine {
 
     private String description;
     private long end_time;
-    private ArrayList<IFeedback> feedback;
+//    private ArrayList<IFeedback> feedback;
     private boolean is_online;
     private boolean enabled;
     private ArrayList<IKhachMoi> khachmoi;
@@ -33,9 +33,9 @@ public class ITimeLine {
         return end_time;
     }
 
-    public ArrayList<IFeedback> getFeedback() {
-        return feedback;
-    }
+//    public ArrayList<IFeedback> getFeedback() {
+//        return feedback;
+//    }
 
     public boolean getIs_online() {
         return is_online;
@@ -81,6 +81,7 @@ public class ITimeLine {
     public static class IFeedback {
         private String content;
         private String email;
+        private long star;
 
         public IFeedback(){}
 
@@ -95,6 +96,10 @@ public class ITimeLine {
 
         public String getEmail() {
             return email;
+        }
+
+        public long getStar() {
+            return star;
         }
     }
 

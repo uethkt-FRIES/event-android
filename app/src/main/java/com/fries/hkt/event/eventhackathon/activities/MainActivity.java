@@ -112,8 +112,9 @@ public class MainActivity extends AppCompatActivity
                 String map = dataSnapshot.child("map").getValue(String.class);
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String place = dataSnapshot.child("place").getValue(String.class);
+                String overview = dataSnapshot.child("overview").getValue(String.class);
 
-                sharedPreferencesMgr.setEventInfo(banner, map, name, place);
+                sharedPreferencesMgr.setEventInfo(banner, map, name, place, overview);
 
                 getSupportActionBar().setTitle(name);
             }

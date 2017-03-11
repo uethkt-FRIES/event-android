@@ -50,7 +50,6 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
     private void initViews() {
         askBtn = (Button) findViewById(R.id.btn_ask);
         feedbackBtn = (Button) findViewById(R.id.btn_feedback);
-        askBtn.setOnClickListener(this);
         feedbackBtn.setOnClickListener(this);
 
         if (timeLine.getIs_online()) {
@@ -68,6 +67,16 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
         long time = (timeLine.getEnd_time() - timeLine.getStart_time())/60000;
         Log.i(TAG, time + "");
         ((TextView)findViewById(R.id.tv_space_time)).setText(time + " phút");
+
+        String related = timeLine.getRelated();
+        if (related!=null && !related.isEmpty() && related.contains("QA")) {
+            askBtn.setEnabled(true);
+            askBtn.setOnClickListener(this);
+            askBtn.setAlpha(1f);
+        } else {
+            askBtn.setEnabled(false);
+            askBtn.setAlpha(0.7f);
+        }
     }
 
     @Override
