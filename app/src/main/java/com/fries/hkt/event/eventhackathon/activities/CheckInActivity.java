@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.app.AppConfig;
+import com.fries.hkt.event.eventhackathon.models.IUser;
 import com.fries.hkt.event.eventhackathon.network.RequestServer;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
 import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
@@ -33,12 +34,18 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tmq on 10/03/2017.
@@ -47,6 +54,12 @@ import java.io.IOException;
 public class CheckInActivity extends AppCompatActivity{
 
     private static final String TAG = CheckInActivity.class.getSimpleName();
+
+    SharedPreferencesMgr sharedPreferencesMgr;
+
+    private DatabaseReference mDatabase = FirebaseDatabase
+            .getInstance()
+            .getReference();
 
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
@@ -85,6 +98,7 @@ public class CheckInActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        sharedPreferencesMgr = new SharedPreferencesMgr(this);
     }
 
     private void initCamera() {
@@ -182,10 +196,34 @@ public class CheckInActivity extends AppCompatActivity{
                     Log.i(TAG, response.toString());
                     return;
                 }
+
                 preferencesMgr.setEventId(code);
+
+
+                String keyOfUser = FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("/events/" + sharedPreferencesMgr.getEventId() + "/users/")
+                        .push().getKey();
+
+                IUser userInfo = new IUser(
+                        sharedPreferencesMgr.getUserInfo().getAvatar(),
+                        sharedPreferencesMgr.getUserInfo().getEmail(),
+                        sharedPreferencesMgr.getUserInfo().getName());
+
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/events/" + sharedPreferencesMgr.getEventId() + "/users/" + keyOfUser + "/", userInfo.toMap());
+
+                mDatabase.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        //Log.d(TAG, databaseError.getMessage());
+                    }
+                });
 
                 Toast.makeText(CheckInActivity.this, R.string.txt_login_success, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+
 
                 Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -193,7 +231,12 @@ public class CheckInActivity extends AppCompatActivity{
                 CheckInActivity.this.finish();
             }
         });
+
         requestServer.sendRequest("fcm");
+
+
+
+
     }
 
 
@@ -201,7 +244,6 @@ public class CheckInActivity extends AppCompatActivity{
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case CommonVls.REQUEST_CAMERA: {
-                Log.i(TAG, "request camera");
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i(TAG, "grant");

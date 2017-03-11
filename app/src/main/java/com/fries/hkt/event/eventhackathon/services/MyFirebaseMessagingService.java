@@ -1,6 +1,7 @@
 package com.fries.hkt.event.eventhackathon.services;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -54,45 +55,47 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private void sendNotification(Map<String, String> msgData) {
-        if(msgData.containsKey("type")){
-            if(msgData.get("type").equals("1")){
+        Bundle bundle = new Bundle();
+        if(msgData.containsKey("type]")){
+            if(msgData.get("type]").equals("1")){
+                Log.d("HIHI", msgData.get("type]"));
                 handleMessageWithOpenQuickAnswer(msgData);
             }
         }
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        } else {
-            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
-                    .setColor(ContextCompat.getColor(this, R.color.colorAccent));
-        }
 
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(
-                PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
-                TAG);
+        Intent intent = new Intent(this, PushDialogQuickAnswerService.class);
+        intent.putExtras(bundle);
 
-        wl.acquire();
-        wl.release();
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0 /* Request code */, intent,
+                0);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Timy")
+                .setContentText(msgData.get("title"))
+                .setAutoCancel(true)
+                .setOngoing(true)
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
+
+
     }
 
     private void handleMessageWithOpenQuickAnswer(Map<String, String> msgData){
         Bundle bundle = new Bundle();
 
-        if(msgData.containsKey("title")) bundle.putString("title", msgData.get("title"));
-        if(msgData.containsKey("question_id")) bundle.putString("question_id", msgData.get("question_id"));
-        if(msgData.containsKey("content")) bundle.putString("content", msgData.get("content"));
-        if(msgData.containsKey("as1")) bundle.putString("as1", msgData.get("as1"));
-        if(msgData.containsKey("as2")) bundle.putString("as2", msgData.get("as2"));
-        if(msgData.containsKey("as3")) bundle.putString("as3", msgData.get("as3"));
-        if(msgData.containsKey("as4")) bundle.putString("as4", msgData.get("as4"));
+        if(msgData.containsKey("title]")) bundle.putString("title", msgData.get("title]"));
+        if(msgData.containsKey("question_id]")) bundle.putString("question_id", msgData.get("question_id]"));
+        if(msgData.containsKey("content]")) bundle.putString("content", msgData.get("content]"));
+        if(msgData.containsKey("as1]")) bundle.putString("as1", msgData.get("as1]"));
+        if(msgData.containsKey("as2]")) bundle.putString("as2", msgData.get("as2]"));
+        if(msgData.containsKey("as3]")) bundle.putString("as3", msgData.get("as3]"));
+        if(msgData.containsKey("as4]")) bundle.putString("as4", msgData.get("as4]"));
 
         Intent intent = new Intent(this, PushDialogQuickAnswerService.class);
         intent.putExtras(bundle);

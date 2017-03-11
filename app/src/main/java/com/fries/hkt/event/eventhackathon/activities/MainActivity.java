@@ -90,10 +90,12 @@ public class MainActivity extends AppCompatActivity
         CircleImageView avatar = (CircleImageView)navigationView.getHeaderView(0).findViewById(R.id.iv_avatar);
         TextView txtUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
         TextView txtMail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_email);
+        TextView txtNameEvent = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_event_name);
 
         Picasso.with(this).load(sharedPreferencesMgr.getUserInfo().getAvatar()).into(avatar);
         txtUserName.setText(sharedPreferencesMgr.getUserInfo().getName());
         txtMail.setText(sharedPreferencesMgr.getUserInfo().getEmail());
+        txtNameEvent.setText(sharedPreferencesMgr.getEventName());
         initDataFirebase();
     }
 
@@ -142,12 +144,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -43,7 +43,6 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE= 5469;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -63,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
         initViews();
         initFirebaseAuthen();
-        checkPermission();
         setupLoginFacebook();
     }
 
@@ -180,29 +178,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
-            if (!Settings.canDrawOverlays(this)) {
-                // You don't have permission
-                checkPermission();
-            } else {
-                //do as per your logic
-            }
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
-            }
-        }
-    }
+
 
     private void directToCheckIn(){
         Intent intent = new Intent(LoginActivity.this, CheckInActivity.class);
@@ -238,8 +218,6 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                         }
-
-                        // ...
                     }
                 });
     }
