@@ -4,16 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@color/colorPrimary"
     tools:context="com.fries.hkt.event.eventhackathon.activities.LoadingActivity">
 
-
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FRIES"
-        android:textColor="@color/black_12"
-        android:textScaleX="1.5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:src="@mipmap/ic_timy" />
 
 </LinearLayout>
