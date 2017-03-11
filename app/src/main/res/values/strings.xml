@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Event Hackathon</string>
+    <string name="app_name">Timy</string>
     <string name="lb_login_acti">Đăng nhập</string>
     <string name="lb_check_in_acti">Check In</string>
     <string name="lb_qr_scanner_acti">Quét mã</string>
@@ -29,6 +29,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="txt_discuss">Thảo luận</string>
     <string name="txt_rate">Đánh giá</string>
+    <string name="facebook_app_id">614324638755221</string>
 
 
 </resources>
