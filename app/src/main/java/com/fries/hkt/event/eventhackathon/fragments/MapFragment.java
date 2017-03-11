@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
+import com.fries.hkt.event.eventhackathon.utils.TouchImageView;
+import com.squareup.picasso.Picasso;
 
 
 public class MapFragment extends Fragment {
@@ -15,8 +18,6 @@ public class MapFragment extends Fragment {
      * The fragment argument representing the section number for this
      * fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
     public MapFragment() {
     }
 
@@ -32,11 +33,14 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        initViews();
+        initViews(rootView);
         return rootView;
     }
 
-    private void initViews(){
-        // Todo
+    private void initViews(View root){
+        TouchImageView ivMap = (TouchImageView) root.findViewById(R.id.iv_map);
+
+        SharedPreferencesMgr sharedPreferencesMgr = new SharedPreferencesMgr(getContext());
+        Picasso.with(getContext()).load(sharedPreferencesMgr.getEventMap()).into(ivMap);
     }
 }

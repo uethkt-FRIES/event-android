@@ -11,6 +11,7 @@ public class ITimeLine {
     private long end_time;
     ArrayList<IFeedback> feedback;
     private boolean is_online;
+    private boolean enabled;
     ArrayList<IKhachMoi> khachmoi;
     private String name;
     private String place;
@@ -21,7 +22,7 @@ public class ITimeLine {
 
     public ITimeLine(){}
 
-    public ITimeLine(long end_time, ArrayList<IFeedback> feedback, boolean is_online, ArrayList<IKhachMoi> khachmoi, String name, String place, ArrayList<IPool> pool, ArrayList<IPoolUser> pool_users, ArrayList<IQuestion> question, long start_time) {
+    public ITimeLine(long end_time, ArrayList<IFeedback> feedback, boolean is_online, ArrayList<IKhachMoi> khachmoi, String name, String place, ArrayList<IPool> pool, ArrayList<IPoolUser> pool_users, ArrayList<IQuestion> question, long start_time, boolean enable) {
         this.end_time = end_time;
         this.feedback = feedback;
         this.is_online = is_online;
@@ -32,6 +33,7 @@ public class ITimeLine {
         this.pool_users = pool_users;
         this.question = question;
         this.start_time = start_time;
+        this.enabled = enable;
     }
 
     public long getEnd_time() {
@@ -42,7 +44,7 @@ public class ITimeLine {
         return feedback;
     }
 
-    public boolean is_online() {
+    public boolean getIs_online() {
         return is_online;
     }
 
@@ -72,6 +74,10 @@ public class ITimeLine {
 
     public long getStart_time() {
         return start_time;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
     }
 
     // ------------------------------- Class -------------------------------------------------------

@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <com.fries.hkt.event.eventhackathon.utils.TouchImageView
+        android:id="@+id/iv_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bg_side_nav_bar" />

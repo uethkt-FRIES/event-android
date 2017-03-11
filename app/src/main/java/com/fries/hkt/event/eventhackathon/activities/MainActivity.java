@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,13 +23,21 @@ import android.widget.TextView;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.adapters.SectionsPagerAdapter;
 import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     SharedPreferencesMgr sharedPreferencesMgr;
@@ -84,6 +93,33 @@ public class MainActivity extends AppCompatActivity
         Picasso.with(this).load(sharedPreferencesMgr.getUserInfo().getAvatar()).into(avatar);
         txtUserName.setText(sharedPreferencesMgr.getUserInfo().getName());
         txtMail.setText(sharedPreferencesMgr.getUserInfo().getEmail());
+        initDataFirebase();
+    }
+
+    private void initDataFirebase(){
+        String id = sharedPreferencesMgr.getEventId();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/events/" + id);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "data=" + dataSnapshot.toString());
+                String banner = dataSnapshot.child("banner").getValue(String.class);
+                String map = dataSnapshot.child("map").getValue(String.class);
+                String name = dataSnapshot.child("name").getValue(String.class);
+                String place = dataSnapshot.child("place").getValue(String.class);
+
+                sharedPreferencesMgr.setEventInfo(banner, map, name, place);
+
+                getSupportActionBar().setTitle(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

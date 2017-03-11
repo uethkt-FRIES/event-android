@@ -49,6 +49,7 @@
         android:orientation="vertical">
 
         <View
+            android:id="@+id/v_top_line"
             android:layout_width="1dp"
             android:layout_height="@dimen/padding_layout"
             android:alpha="0.54"
@@ -73,6 +74,7 @@
         </FrameLayout>
 
         <View
+            android:id="@+id/v_bottom_line"
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"
