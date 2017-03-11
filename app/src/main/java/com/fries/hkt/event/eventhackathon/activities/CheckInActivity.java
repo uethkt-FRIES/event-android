@@ -71,9 +71,11 @@ public class CheckInActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
 
+        // TODO: TEST
         initViews();
+//        initCamera();
+
         checkCode("-KetXc5P8HCrQy-yIHA9");
-        initCamera();
     }
 
     private void initViews() {

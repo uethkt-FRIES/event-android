@@ -41,6 +41,8 @@ public class AskQuestionDialog extends Dialog {
 
         setContentView(R.layout.dialog_ask);
 
+
+
         btnSend = (Button) findViewById(R.id.btn_send);
         edtFeedback = (EditText) findViewById(R.id.edt_feedback);
 
