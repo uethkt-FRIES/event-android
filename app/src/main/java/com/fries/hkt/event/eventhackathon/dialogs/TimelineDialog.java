@@ -10,20 +10,31 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.models.ITimeLine;
+import com.fries.hkt.event.eventhackathon.utils.CommonVls;
+
+import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by TooNies1810 on 3/11/17.
  */
 
-public class TimelineDialog extends Dialog implements View.OnClickListener{
+public class TimelineDialog extends Dialog implements View.OnClickListener {
 
+    private static final String TAG = TimelineDialog.class.getSimpleName();
     private Button askBtn;
     private Button feedbackBtn;
+    private ITimeLine timeLine;
 
-    public TimelineDialog(Context context) {
+    public TimelineDialog(Context context, ITimeLine timeLine) {
         super(context);
+        this.timeLine = timeLine;
     }
 
     @Override
@@ -33,10 +44,28 @@ public class TimelineDialog extends Dialog implements View.OnClickListener{
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_agenda_details_full);
 
+        initViews();
+    }
+
+    private void initViews() {
         askBtn = (Button) findViewById(R.id.btn_ask);
         feedbackBtn = (Button) findViewById(R.id.btn_feedback);
         askBtn.setOnClickListener(this);
         feedbackBtn.setOnClickListener(this);
+
+        if (timeLine.getIs_online()) {
+            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
+        } else {
+            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
+        }
+
+        ((TextView)findViewById(R.id.tv_place)).setText(timeLine.getPlace());
+
+        ((TextView)findViewById(R.id.tv_date_time)).setText(getTime(timeLine.getStart_time()) + " - " + getTime(timeLine.getEnd_time()));
+
+        long time = (timeLine.getEnd_time() - timeLine.getStart_time())/60000;
+        Log.i(TAG, time + "");
+        ((TextView)findViewById(R.id.tv_space_time)).setText(time + " phút");
     }
 
     @Override
@@ -83,5 +112,15 @@ public class TimelineDialog extends Dialog implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    private String getTime(long milliseconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int mins = calendar.get(Calendar.MINUTE);
+
+        return hours + ":" + mins;
     }
 }

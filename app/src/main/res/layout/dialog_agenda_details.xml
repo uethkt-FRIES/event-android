@@ -15,14 +15,14 @@
         android:gravity="center_vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/iv_avatar"
+            android:id="@+id/iv_state"
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:src="@color/black_54"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="0.5dp" />
+            />
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_layout"
@@ -36,6 +36,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/tv_space_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30 phut"
@@ -56,7 +57,7 @@
             android:src="@drawable/ic_place_darker" />
 
         <TextView
-            android:id="@+id/tv_place_agenda"
+            android:id="@+id/tv_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hoi truong A1"
@@ -66,9 +67,10 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_date_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="54dp"
         android:layout_marginTop="4dp"
         android:text="Th2 06 thg 03 luc 18h - 18h30"
         android:textColor="@color/black_54"
