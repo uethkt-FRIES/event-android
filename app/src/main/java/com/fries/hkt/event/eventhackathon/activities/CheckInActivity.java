@@ -73,7 +73,7 @@ public class CheckInActivity extends AppCompatActivity{
 
         // TODO: TEST
         initViews();
-//        initCamera();
+        initCamera();
 
         checkCode("-KetXc5P8HCrQy-yIHA9");
     }
