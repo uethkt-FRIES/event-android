@@ -60,8 +60,12 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
 
         if (timeLine.getIs_online()) {
             ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
+            askBtn.setEnabled(true);
+            feedbackBtn.setEnabled(true);
         } else {
             ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
+            askBtn.setEnabled(false);
+            feedbackBtn.setEnabled(false);
         }
 
         ((TextView) findViewById(R.id.tv_place)).setText(timeLine.getPlace());
