@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.adapters.SectionsPagerAdapter;
@@ -161,6 +162,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_notification:
                 Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_share:
+            case R.id.nav_setting:
+                Toast.makeText(this, "Comming soon", Toast.LENGTH_SHORT).show();
                 break;
         }
 
