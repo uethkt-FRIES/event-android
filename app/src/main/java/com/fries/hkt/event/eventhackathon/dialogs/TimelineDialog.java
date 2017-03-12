@@ -76,7 +76,11 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
         askBtn.setOnClickListener(this);
 
         if (timeLine.getIs_online()) {
-            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
+            long now= System.currentTimeMillis();
+            long end_time = timeLine.getEnd_time();
+
+            if (now > end_time) ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
+            else ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
             askBtn.setEnabled(true);
             askBtn.setAlpha(1f);
             feedbackBtn.setEnabled(true);

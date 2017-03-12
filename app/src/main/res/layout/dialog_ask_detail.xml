@@ -31,7 +31,7 @@
         android:background="@android:color/white"
         android:gravity="top|left"
         android:hint="Đặt câu hỏi của bạn tại đây"
-        android:minHeight="180dp"
+        android:minHeight="120dp"
         android:padding="@dimen/padding_layout" />
 
     <View
@@ -50,7 +50,7 @@
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="?attr/selectableItemBackground"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:text="Gửi"
