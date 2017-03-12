@@ -66,13 +66,12 @@ public class AskQuestionDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(edtFeedback.getText())){
-                    String urlDB = "/events/" + sharedPreferencesMgr.getEventId() + "/timelines/" + mIndexOfAgenda + "/feedback/";
+                    String urlDB = "/events/" + sharedPreferencesMgr.getEventId() + "/timelines/" + mIndexOfAgenda + "/questions/";
                     // post to firebase and then close this dialog
                     String key = mDatabase.child(urlDB).push().getKey();
                     HashMap<String, Object> feedBack = new HashMap<String, Object>();
                     feedBack.put("content", edtFeedback.getText().toString());
                     feedBack.put("email", sharedPreferencesMgr.getUserInfo().getEmail());
-                    feedBack.put("star", rating.getNumStars());
 
                     HashMap<String, Object> objectUpdate = new HashMap<String, Object>();
                     objectUpdate.put(urlDB + key, feedBack);
@@ -80,7 +79,7 @@ public class AskQuestionDialog extends Dialog {
                     mDatabase.updateChildren(objectUpdate, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                           // FeedbackDialog.this.dismiss();
+                           AskQuestionDialog.this.dismiss();
                         }
                     });
                 } else {
