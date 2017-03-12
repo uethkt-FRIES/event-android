@@ -87,7 +87,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         @Override
         public void onClick(View v) {
 //            final Dialog d = new Dialog(mContext, R.style.AppTheme_OverlapStatusBar);
-            final TimelineDialog d = new TimelineDialog(mContext, timeLine);
+            final TimelineDialog d = new TimelineDialog(mContext, timeLine, getAdapterPosition());
 
             d.setContentView(R.layout.dialog_agenda_details_full);
             d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

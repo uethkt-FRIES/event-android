@@ -32,10 +32,13 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
     private Button askBtn;
     private Button feedbackBtn;
     private ITimeLine timeLine;
+    private int index;
 
-    public TimelineDialog(Context context, ITimeLine timeLine) {
+
+    public TimelineDialog(Context context, ITimeLine timeLine, int index) {
         super(context);
         this.timeLine = timeLine;
+        this.index = index;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
             case R.id.btn_feedback:
                 Log.i("ok", "feed");
 
-                FeedbackDialog d = new FeedbackDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                FeedbackDialog d = new FeedbackDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert, index);
                 d.setDlFeed(this);
                 d.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
                 d.setTitle("");
