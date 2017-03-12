@@ -7,6 +7,20 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="56dp">
+        <RelativeLayout
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quét QR"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
     <SurfaceView
         android:layout_below="@id/toolbar"

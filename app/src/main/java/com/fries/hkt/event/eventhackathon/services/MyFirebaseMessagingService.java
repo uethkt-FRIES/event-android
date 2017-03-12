@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.activities.LoadingActivity;
+import com.fries.hkt.event.eventhackathon.activities.NotificationsActivity;
 import com.fries.hkt.event.eventhackathon.customview.QuickAnswerViewGroup;
 import com.fries.hkt.event.eventhackathon.eventbus.ShowQuickAnswerEvent;
 import com.fries.hkt.event.eventhackathon.models.QuestionBean;
@@ -63,6 +64,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (msgData.get("type]").equals("1")) {
                 Log.d("FCM", "ABCD");
                 handleMessageWithOpenQuickAnswer(msgData);
+            } else if (msgData.get("type]").equals("2")){
+                Intent intent = new Intent(this, NotificationsActivity.class);
+                intent.putExtras(bundle);
+
+                PendingIntent pendingIntent = PendingIntent.getService(this, 0 /* Request code */, intent,
+                        0);
+
+                NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(msgData.get("title]"))
+                        .setContentText(msgData.get("content]"))
+                        .setAutoCancel(true)
+                        .setOngoing(true)
+                        .setWhen(System.currentTimeMillis())
+                        .setContentIntent(pendingIntent);
+
+                NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                notificationManager.notify((int) System.currentTimeMillis(), notificationBuilder.build());
+
             }
         } else {
             Intent intent = new Intent(this, LoadingActivity.class);
@@ -122,7 +143,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 bundle.getString("as2"),
                 bundle.getString("as3"),
                 bundle.getString("as4"));
-
 
         EventBus.getDefault().post(qq);
     }

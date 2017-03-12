@@ -100,7 +100,6 @@ public class CheckInActivity extends AppCompatActivity{
     private void initViews() {
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Quét QR");
         setSupportActionBar(toolbar);
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
     }
