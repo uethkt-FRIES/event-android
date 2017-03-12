@@ -58,15 +58,6 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
 
         ((TextView) findViewById(R.id.tv_name)).setText(timeLine.getName());
 
-        if (timeLine.getIs_online()) {
-            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
-            askBtn.setEnabled(true);
-            feedbackBtn.setEnabled(true);
-        } else {
-            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
-            askBtn.setEnabled(false);
-            feedbackBtn.setEnabled(false);
-        }
 
         ((TextView) findViewById(R.id.tv_place)).setText(timeLine.getPlace());
 
@@ -82,14 +73,30 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
         long time = timeLine.getEnd_time() - timeLine.getStart_time();
         ((TextView) findViewById(R.id.tv_space_time)).setText("Khoảng: " +MyTime.longtime(time) + " phút");
 
-        String related = timeLine.getRelated();
-        if (related != null && !related.isEmpty() && related.contains("QA")) {
+        askBtn.setOnClickListener(this);
+
+        if (timeLine.getIs_online()) {
+            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
             askBtn.setEnabled(true);
-            askBtn.setOnClickListener(this);
             askBtn.setAlpha(1f);
+            feedbackBtn.setEnabled(true);
+            feedbackBtn.setAlpha(1f);
+
+            String related = timeLine.getRelated();
+            if (related != null && !related.isEmpty() && related.contains("QA")) {
+//                askBtn.setEnabled(true);
+//
+//                askBtn.setAlpha(1f);
+            } else {
+                askBtn.setEnabled(false);
+                askBtn.setAlpha(0.7f);
+            }
         } else {
+            ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
             askBtn.setEnabled(false);
+            feedbackBtn.setEnabled(false);
             askBtn.setAlpha(0.7f);
+            feedbackBtn.setAlpha(0.7f);
         }
     }
 
