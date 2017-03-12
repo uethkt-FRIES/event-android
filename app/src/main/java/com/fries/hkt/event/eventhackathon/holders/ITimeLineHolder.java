@@ -125,12 +125,17 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
             tvName.setTypeface(null, Typeface.BOLD);
             pbState.setVisibility(View.VISIBLE);
             vState.setVisibility(View.VISIBLE);
-        } else {
-            resId = R.drawable.ic_agenda_passed;
-            tvName.setTextColor(CommonVls.getColor(R.color.black_54, mContext));
-            tvName.setTypeface(null, Typeface.NORMAL);
-            pbState.setVisibility(View.GONE);
-            vState.setVisibility(View.INVISIBLE);
+
+            long now= System.currentTimeMillis();
+            long end_time = timeLine.getEnd_time();
+
+            if (now > end_time){
+                resId = R.drawable.ic_agenda_passed;
+                tvName.setTextColor(CommonVls.getColor(R.color.black_54, mContext));
+                tvName.setTypeface(null, Typeface.NORMAL);
+                pbState.setVisibility(View.GONE);
+                vState.setVisibility(View.INVISIBLE);
+            }
         }
         ivState.setImageResource(resId);
     }
