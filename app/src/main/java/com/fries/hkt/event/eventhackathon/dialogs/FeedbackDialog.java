@@ -97,6 +97,7 @@ public class FeedbackDialog extends Dialog {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             FeedbackDialog.this.dismiss();
+                            Toast.makeText(getContext(), "Đánh giá xong", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
