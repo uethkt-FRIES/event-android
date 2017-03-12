@@ -44,6 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -221,11 +222,7 @@ public class CheckInActivity extends AppCompatActivity{
                 Toast.makeText(CheckInActivity.this, R.string.txt_login_success, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
 
-
-                Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
-                startActivity(intent);
-
-                CheckInActivity.this.finish();
+                directToMainActivity();
             }
         });
 
@@ -233,8 +230,7 @@ public class CheckInActivity extends AppCompatActivity{
     }
 
     private void checkConflictUser(final String code) {
-        final SharedPreferencesMgr preferencesMgr = new SharedPreferencesMgr(this);
-        final String email = preferencesMgr.getUserInfo().getEmail();
+        final String email = sharedPreferencesMgr.getUserInfo().getEmail();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("/events/" + code + "/users");
 
@@ -259,11 +255,8 @@ public class CheckInActivity extends AppCompatActivity{
                     message.setData(bundle);
                     mHandler.sendMessage(message);
                 } else {
-                    preferencesMgr.setEventId(code);
-                    Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
-                    startActivity(intent);
-
-                    CheckInActivity.this.finish();
+                    sharedPreferencesMgr.setEventId(code);
+                    directToMainActivity();
                 }
             }
 
@@ -290,6 +283,42 @@ public class CheckInActivity extends AppCompatActivity{
                 break;
             }
         }
+    }
+
+    private void directToMainActivity(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.txt_please_wait));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
+        String id = sharedPreferencesMgr.getEventId();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/events/" + id);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "data=" + dataSnapshot.toString());
+                String banner = dataSnapshot.child("banner").getValue(String.class);
+                String map = dataSnapshot.child("map").getValue(String.class);
+                String name = dataSnapshot.child("name").getValue(String.class);
+                String place = dataSnapshot.child("place").getValue(String.class);
+                String overview = dataSnapshot.child("overview").getValue(String.class);
+
+                sharedPreferencesMgr.setEventInfo(banner, map, name, place, overview);
+                progressDialog.dismiss();
+
+                Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                CheckInActivity.this.finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

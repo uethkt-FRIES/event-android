@@ -2,6 +2,7 @@ package com.fries.hkt.event.eventhackathon.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.adapters.SectionsPagerAdapter;
+import com.fries.hkt.event.eventhackathon.fragments.EventInfoFragment;
+import com.fries.hkt.event.eventhackathon.fragments.MapFragment;
 import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -96,34 +101,7 @@ public class MainActivity extends AppCompatActivity
         txtUserName.setText(sharedPreferencesMgr.getUserInfo().getName());
         txtMail.setText(sharedPreferencesMgr.getUserInfo().getEmail());
         txtNameEvent.setText(sharedPreferencesMgr.getEventName());
-        initDataFirebase();
-    }
-
-    private void initDataFirebase(){
-        String id = sharedPreferencesMgr.getEventId();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("/events/" + id);
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "data=" + dataSnapshot.toString());
-                String banner = dataSnapshot.child("banner").getValue(String.class);
-                String map = dataSnapshot.child("map").getValue(String.class);
-                String name = dataSnapshot.child("name").getValue(String.class);
-                String place = dataSnapshot.child("place").getValue(String.class);
-                String overview = dataSnapshot.child("overview").getValue(String.class);
-
-                sharedPreferencesMgr.setEventInfo(banner, map, name, place, overview);
-
-                getSupportActionBar().setTitle(name);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        getSupportActionBar().setTitle(sharedPreferencesMgr.getEventName());
     }
 
     @Override

@@ -88,7 +88,7 @@ public class FeedbackDialog extends Dialog {
                     HashMap<String, Object> feedBack = new HashMap<String, Object>();
                     feedBack.put("content", edtFeedback.getText().toString());
                     feedBack.put("email", sharedPreferencesMgr.getUserInfo().getEmail());
-                    feedBack.put("star", (int)rating.getRating());
+                    feedBack.put("star", rating.getNumStars());
 
                     HashMap<String, Object> objectUpdate = new HashMap<String, Object>();
                     objectUpdate.put(urlDB + key, feedBack);
