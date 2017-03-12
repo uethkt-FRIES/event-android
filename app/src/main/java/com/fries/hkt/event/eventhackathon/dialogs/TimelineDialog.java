@@ -97,7 +97,6 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ask:
-                Log.i("ok", "ask");
                 AskQuestionDialog d1 = new AskQuestionDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                 d1.setDlFeed(this);
                 d1.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
@@ -116,7 +115,6 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
 
                 break;
             case R.id.btn_feedback:
-                Log.i("ok", "feed");
 
                 FeedbackDialog d = new FeedbackDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert, index);
                 d.setDlFeed(this);
