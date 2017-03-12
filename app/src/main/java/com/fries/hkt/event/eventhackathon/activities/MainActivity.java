@@ -158,6 +158,10 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i);
                 finish();
                 break;
+            case R.id.nav_notification:
+                Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+                startActivity(intent);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

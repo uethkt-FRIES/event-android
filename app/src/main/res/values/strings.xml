@@ -32,6 +32,8 @@
     <string name="facebook_app_id">117017202161770</string>
     <string name="txt_gift">Quà tặng</string>
     <string name="txt_left_event">Rời sự kiện</string>
+    <string name="txt_notification">Thông báo</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
