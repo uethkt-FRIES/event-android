@@ -79,7 +79,7 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
             long now= System.currentTimeMillis();
             long end_time = timeLine.getEnd_time();
 
-            if (now > end_time) ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
+            if (now < end_time) ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.green);
             else ((CircleImageView) findViewById(R.id.iv_state)).setImageResource(R.color.black_54);
             askBtn.setEnabled(true);
             askBtn.setAlpha(1f);

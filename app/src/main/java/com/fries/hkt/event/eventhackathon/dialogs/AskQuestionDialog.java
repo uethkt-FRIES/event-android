@@ -84,6 +84,7 @@ public class AskQuestionDialog extends Dialog {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                            AskQuestionDialog.this.dismiss();
+                            Toast.makeText(getContext(), "Đặt câu hỏi xong", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {

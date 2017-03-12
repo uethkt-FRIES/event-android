@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 /**
@@ -56,6 +58,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<ITimeLineHolder> {
                 }
                 listAgendaItem = arrTemp;
                 notifyDataSetChanged();
+                EventBus.getDefault().post("load_success");
             }
 
             @Override
