@@ -138,7 +138,6 @@ public class PushDialogQuickAnswerService extends Service implements View.OnTouc
                 }
             });
             req.sendRequest("tag");
-            Toast.makeText(PushDialogQuickAnswerService.this, "Cảm ơn bạn đã tham gia", Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }

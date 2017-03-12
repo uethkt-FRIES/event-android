@@ -72,7 +72,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<ITimeLineHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_timeline, parent, false);
 
-        return new ITimeLineHolder(view, mContext);
+        return new ITimeLineHolder(view, mContext, this);
     }
 
     @Override

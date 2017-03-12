@@ -104,7 +104,7 @@ public class TimelineDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ask:
-                AskQuestionDialog d1 = new AskQuestionDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                AskQuestionDialog d1 = new AskQuestionDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert, index);
                 d1.setDlFeed(this);
                 d1.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 

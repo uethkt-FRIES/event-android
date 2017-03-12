@@ -19,6 +19,7 @@ import com.fries.hkt.event.eventhackathon.utils.CommonVls;
 import com.fries.hkt.event.eventhackathon.utils.SharedPreferencesMgr;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -38,12 +39,14 @@ public class AskQuestionDialog extends Dialog {
 
     SharedPreferencesMgr sharedPreferencesMgr;
 
-    public AskQuestionDialog(Context context) {
+    public AskQuestionDialog(Context context, int mIndexOfAgenda) {
         super(context);
+        this.mIndexOfAgenda = mIndexOfAgenda;
     }
 
-    public AskQuestionDialog(@NonNull Context context, @StyleRes int themeResId) {
+    public AskQuestionDialog(@NonNull Context context, @StyleRes int themeResId, int mIndexOfAgenda) {
         super(context, themeResId);
+        this.mIndexOfAgenda = mIndexOfAgenda;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class AskQuestionDialog extends Dialog {
 
         btnSend = (Button) findViewById(R.id.btn_send);
         edtFeedback = (EditText) findViewById(R.id.edt_feedback);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 //        ImageView iv_reviewer = (ImageView) findViewById(R.id.iv_reviewer);
 //        iv_reviewer.bringToFront();
@@ -83,7 +87,7 @@ public class AskQuestionDialog extends Dialog {
                         }
                     });
                 } else {
-                    Toast.makeText(getContext(), "Vui lòng điền cảm nhận của bạn", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vui lòng điền câu hỏi của bạn", Toast.LENGTH_SHORT).show();
                 }
             }
         });

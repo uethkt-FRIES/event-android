@@ -33,7 +33,7 @@ public class NotificationsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        toolbar.setTitle("Thông báo");
+        getSupportActionBar().setTitle("Thông báo");
 
         NotificationsAdapter notificationsAdapter = new NotificationsAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fries.hkt.event.eventhackathon.R;
+import com.fries.hkt.event.eventhackathon.adapters.TimeLineAdapter;
 import com.fries.hkt.event.eventhackathon.dialogs.TimelineDialog;
 import com.fries.hkt.event.eventhackathon.models.AgendaItem;
 import com.fries.hkt.event.eventhackathon.models.ITimeLine;
@@ -43,13 +44,17 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
     private ProgressBar pbState;
     private View vState;
     private Context mContext;
+    private View lineTop;
+    private View lineBottom;
+    private TimeLineAdapter timeLineAdapter;
 
     private ITimeLine timeLine;
 
-    public ITimeLineHolder(View itemView, Context context) {
+    public ITimeLineHolder(View itemView, Context context, TimeLineAdapter timeLineAdapter) {
         super(itemView);
         rootView = itemView;
         mContext = context;
+        this.timeLineAdapter = timeLineAdapter;
 
         // Init views
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
@@ -63,6 +68,8 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         ivGift = (ImageView) itemView.findViewById(R.id.iv_gift);
         ivQA = (ImageView) itemView.findViewById(R.id.iv_qa);
         ivTea = (ImageView) itemView.findViewById(R.id.iv_tea);
+        lineBottom = itemView.findViewById(R.id.v_bottom_line);
+        lineTop = itemView.findViewById(R.id.v_top_line);
 
         // Set other
         rootView.setOnClickListener(onClickRootView);
@@ -81,6 +88,7 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
         tvPlace.setText(timeLine.getPlace());
         tvSubDescription.setText(timeLine.getDescription());
         setRelated();
+        showLine();
     }
 
     private View.OnClickListener onClickRootView = new View.OnClickListener() {
@@ -174,6 +182,17 @@ public class ITimeLineHolder extends RecyclerView.ViewHolder {
             if (item.equalsIgnoreCase("gift")) ivGift.setVisibility(View.VISIBLE);
             else if (item.equalsIgnoreCase("tea")) ivTea.setVisibility(View.VISIBLE);
             else if (item.equalsIgnoreCase("qa")) ivQA.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showLine(){
+        if(getAdapterPosition() == 0){
+            lineTop.setVisibility(View.INVISIBLE);
+
+        }
+
+        if(getAdapterPosition() == timeLineAdapter.getItemCount() - 1){
+            lineBottom.setVisibility(View.INVISIBLE);
         }
     }
 
