@@ -6,14 +6,23 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="8dp">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_reviewer"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@mipmap/ic_user1"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="0.5dp" />
+    <com.dd.ShadowLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:sl_shadowRadius="4dp"
+        app:sl_shadowColor="#80000000"
+        app:sl_dx="0dp"
+        app:sl_dy="2dp"
+        app:sl_cornerRadius="56dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_reviewer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_user1"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="0.5dp" />
+    </com.dd.ShadowLayout>
 
     <EditText
         android:id="@+id/edt_feedback"

@@ -18,35 +18,34 @@
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
         <!--android:title="Tools" />-->
-        <item
-            android:checkableBehavior="single"
-            android:title="">
-            <menu>
-                <item
-                    android:id="@+id/nav_gift"
-                    android:icon="@drawable/ic_giftcard"
-                    android:title="Quà tặng" />
-            </menu>
+        <!--<item-->
+        <!--android:id="@+id/nav_gift"-->
+        <!--android:icon="@drawable/ic_giftcard"-->
+        <!--android:title="@string/txt_gift" />-->
 
+        <item android:title="">
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/txt_left_event" />
         </item>
+
 
     </group>
 
     <item android:title="">
         <menu>
-            <!--<item-->
-            <!--android:id="@+id/nav_share"-->
-            <!--android:icon="@drawable/ic_menu_share"-->
-            <!--android:title="Share" />-->
-            <!--<item-->
-            <!--android:id="@+id/nav_send"-->
-            <!--android:icon="@drawable/ic_menu_send"-->
-            <!--android:title="Send" />-->
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
 
             <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="Rời sự kiện" />
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_settings"
+                android:title="Cài đặt" />
+
+
         </menu>
     </item>
 

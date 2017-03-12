@@ -6,7 +6,7 @@ package com.fries.hkt.event.eventhackathon.app;
 
 public class AppConfig {
 
-    private static final String BASE_URL = "https://event.edoo.vn";
+    public static final String BASE_URL = "https://event.edoo.vn";
 
 
     public static final String REGISTER_FCM = BASE_URL + "/fcm";

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.fries.hkt.event.eventhackathon.R;
 import com.fries.hkt.event.eventhackathon.app.AppConfig;
+import com.fries.hkt.event.eventhackathon.models.ITimeLine;
 import com.fries.hkt.event.eventhackathon.models.IUser;
 import com.fries.hkt.event.eventhackathon.network.RequestServer;
 import com.fries.hkt.event.eventhackathon.utils.CommonVls;
@@ -36,15 +37,18 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,8 +101,6 @@ public class CheckInActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Quét QR");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         sharedPreferencesMgr = new SharedPreferencesMgr(this);
     }
 
@@ -146,13 +148,7 @@ public class CheckInActivity extends AppCompatActivity{
 
                 if (barcodes.size() != 0) {
                     allowScan = false;
-                    Message message = mHandler.obtainMessage();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("code", barcodes.valueAt(0).displayValue);
-
-                    message.setData(bundle);
-                    mHandler.sendMessage(message);
+                    checkConflictUser(barcodes.valueAt(0).displayValue);
                 }
             }
         });
@@ -234,7 +230,48 @@ public class CheckInActivity extends AppCompatActivity{
         });
 
         requestServer.sendRequest("fcm");
+    }
 
+    private void checkConflictUser(final String code) {
+        final SharedPreferencesMgr preferencesMgr = new SharedPreferencesMgr(this);
+        final String email = preferencesMgr.getUserInfo().getEmail();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/events/" + code + "/users");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean isExist = false;
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.i(TAG, child.toString());
+                    IUser user = child.getValue(IUser.class);
+                    if (user.getEmail().equalsIgnoreCase(email)) {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if (!isExist) {
+                    Message message = mHandler.obtainMessage();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", code);
+
+                    message.setData(bundle);
+                    mHandler.sendMessage(message);
+                } else {
+                    preferencesMgr.setEventId(code);
+                    Intent intent = new Intent(CheckInActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                    CheckInActivity.this.finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

@@ -30,6 +30,8 @@
     <string name="txt_discuss">Đặt câu hỏi</string>
     <string name="txt_rate">Đánh giá</string>
     <string name="facebook_app_id">117017202161770</string>
+    <string name="txt_gift">Quà tặng</string>
+    <string name="txt_left_event">Rời sự kiện</string>
 
 
 </resources>
